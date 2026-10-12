@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DLOG Audiovisual · Portafolio</title>
+<meta name="description" content="DLOG Audiovisual: producción de video, drone, fotografía y color para marcas, entrevistas y eventos.">
+<meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=7">
+</head>
+<body>
+
+<header class="top" id="top">
+  <a class="brand" href="#inicio" aria-label="DLOG Audiovisual, inicio">DLOG</a>
+  <nav aria-label="Principal">
+    <a href="#trabajos">Trabajos</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#fotos">Fotografía</a>
+    <a href="#historias">Historias</a>
+    <a href="https://www.instagram.com/dlog_audiovisual/" target="_blank" rel="noopener">Instagram</a>
+    <a href="#contacto" class="pill">Contacto</a>
+  </nav>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="hero-text">
+      <h1>
+        <span class="line"><span>Tu marca,</span></span>
+        <span class="line"><span>en movimiento.</span></span>
+      </h1>
+      <p class="lede">Video para empresas: reels, grabación, edición y drone. Trabajamos en La Serena, Coquimbo, Santiago y Antofagasta.</p>
+      <div class="cta">
+        <a class="btn" href="https://wa.me/56942394968" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+        <a class="btn line" href="#trabajos">Ver trabajos</a>
+      </div>
+    </div>
+    <figure class="screen">
+      <video class="hero-video" autoplay muted loop playsinline poster="media/thumbs/promo-final.jpg" src="media/videos/promo-final.mp4" aria-label="Promo final de DLOG"></video>
+      <figcaption class="hud">
+        <span class="rec" aria-hidden="true"></span>
+        <span class="tc" id="tc" aria-live="off">00:00:00:00</span>
+      </figcaption>
+      <button class="sound" aria-pressed="false">Sonido</button>
+    </figure>
+  </section>
+
+  <section id="trabajos" class="reel">
+    <header class="sec-head">
+      <h2>Trabajos</h2>
+      <p>Pasa el cursor para ver cada pieza en movimiento. Toca una para verla completa.</p>
+    </header>
+    <div class="filters" role="group" aria-label="Filtrar por categoría"><button class="chip" aria-pressed="true" data-filter="Todos">Todos <b>28</b></button><button class="chip" aria-pressed="false" data-filter="Publicidad y marcas">Publicidad y marcas <b>3</b></button><button class="chip" aria-pressed="false" data-filter="Informativos">Informativos <b>10</b></button><button class="chip" aria-pressed="false" data-filter="Eventos y nightlife">Eventos y nightlife <b>3</b></button><button class="chip" aria-pressed="false" data-filter="Deporte y acción">Deporte y acción <b>4</b></button><button class="chip" aria-pressed="false" data-filter="Drone y aéreo">Drone y aéreo <b>3</b></button><button class="chip" aria-pressed="false" data-filter="Viajes y paisajes">Viajes y paisajes <b>3</b></button><button class="chip" aria-pressed="false" data-filter="Detrás de cámara">Detrás de cámara <b>2</b></button></div>
+    <div class="track" id="track" tabindex="0" aria-label="Lista de trabajos, desplazable">
+      <button class="clip vertical" data-cat="Publicidad y marcas" data-id="promo-final" data-dur="0:38" data-orient="Vertical" aria-label="Ver Promo final">
+        <img class="poster" src="media/thumbs/promo-final.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/promo-final.mp4"></video>
+        <span class="dur">0:38</span>
+        <span class="meta"><b>Promo final</b><small>Publicidad y marcas</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Publicidad y marcas" data-id="heavylab" data-dur="0:30" data-orient="Vertical" aria-label="Ver Heavylab">
+        <img class="poster" src="media/thumbs/heavylab.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/heavylab.mp4"></video>
+        <span class="dur">0:30</span>
+        <span class="meta"><b>Heavylab</b><small>Publicidad y marcas</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Publicidad y marcas" data-id="noa-mercado" data-dur="0:17" data-orient="Vertical" aria-label="Ver Noa · Mercado">
+        <img class="poster" src="media/thumbs/noa-mercado.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/noa-mercado.mp4"></video>
+        <span class="dur">0:17</span>
+        <span class="meta"><b>Noa · Mercado</b><small>Publicidad y marcas</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Informativos" data-id="salud-max" data-dur="0:39" data-orient="Vertical" aria-label="Ver Plan de salud">
+        <img class="poster" src="media/thumbs/salud-max.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/salud-max.mp4"></video>
+        <span class="dur">0:39</span>
+        <span class="meta"><b>Plan de salud</b><small>Informativos</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Informativos" data-id="maternidad" data-dur="0:39" data-orient="Vertical" aria-label="Ver Maternidad">
+        <img class="poster" src="media/thumbs/maternidad.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/maternidad.mp4"></video>
+        <span class="dur">0:39</span>
+        <span class="meta"><b>Maternidad</b><small>Informativos</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Informativos" data-id="pyme" data-dur="0:40" data-orient="Vertical" aria-label="Ver Ayuda a tu pyme">
+        <img class="poster" src="media/thumbs/pyme.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/pyme.mp4"></video>
+        <span class="dur">0:40</span>
+        <span class="meta"><b>Ayuda a tu pyme</b><small>Informativos</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Informativos" data-id="newman-reel" data-dur="0:26" data-orient="Vertical" aria-label="Ver Newman · Reel">
+        <img class="poster" src="media/thumbs/newman-reel.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/newman-reel.mp4"></video>
+        <span class="dur">0:26</span>
+        <span class="meta"><b>Newman · Reel</b><small>Informativos</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Informativos" data-id="informativo" data-dur="0:49" data-orient="Vertical" aria-label="Ver Informativo y divertido">
+        <img class="poster" src="media/thumbs/informativo.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/informativo.mp4"></video>
+        <span class="dur">0:49</span>
+        <span class="meta"><b>Informativo y divertido</b><small>Informativos</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Informativos" data-id="entrevista" data-dur="0:56" data-orient="Vertical" aria-label="Ver Entrevista">
+        <img class="poster" src="media/thumbs/entrevista.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/entrevista.mp4"></video>
+        <span class="dur">0:56</span>
+        <span class="meta"><b>Entrevista</b><small>Informativos</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Informativos" data-id="venta-camioneta" data-dur="0:46" data-orient="Vertical" aria-label="Ver Venta de camioneta">
+        <img class="poster" src="media/thumbs/venta-camioneta.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/venta-camioneta.mp4"></video>
+        <span class="dur">0:46</span>
+        <span class="meta"><b>Venta de camioneta</b><small>Informativos</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Informativos" data-id="resalta-app" data-dur="0:49" data-orient="Vertical" aria-label="Ver Resalta · App">
+        <img class="poster" src="media/thumbs/resalta-app.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/resalta-app.mp4"></video>
+        <span class="dur">0:49</span>
+        <span class="meta"><b>Resalta · App</b><small>Informativos</small></span>
+      </button>
+      <button class="clip horizontal" data-cat="Informativos" data-id="resalta-web" data-dur="0:53" data-orient="Horizontal" aria-label="Ver Resalta · Página web">
+        <img class="poster" src="media/thumbs/resalta-web.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/resalta-web.mp4"></video>
+        <span class="dur">0:53</span>
+        <span class="meta"><b>Resalta · Página web</b><small>Informativos</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Informativos" data-id="drone-hz" data-dur="0:48" data-orient="Vertical" aria-label="Ver Corredora de propiedades">
+        <img class="poster" src="media/thumbs/drone-hz.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/drone-hz.mp4"></video>
+        <span class="dur">0:48</span>
+        <span class="meta"><b>Corredora de propiedades</b><small>Informativos</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Eventos y nightlife" data-id="diabla-recap" data-dur="0:40" data-orient="Vertical" aria-label="Ver Diabla · Recap">
+        <img class="poster" src="media/thumbs/diabla-recap.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/diabla-recap.mp4"></video>
+        <span class="dur">0:40</span>
+        <span class="meta"><b>Diabla · Recap</b><small>Eventos y nightlife</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Eventos y nightlife" data-id="diabla-4k" data-dur="0:29" data-orient="Vertical" aria-label="Ver Diabla 4K">
+        <img class="poster" src="media/thumbs/diabla-4k.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/diabla-4k.mp4"></video>
+        <span class="dur">0:29</span>
+        <span class="meta"><b>Diabla 4K</b><small>Eventos y nightlife</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Eventos y nightlife" data-id="diabla-ovo" data-dur="0:31" data-orient="Vertical" aria-label="Ver Diabla · Fiesta en OVO">
+        <img class="poster" src="media/thumbs/diabla-ovo.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/diabla-ovo.mp4"></video>
+        <span class="dur">0:31</span>
+        <span class="meta"><b>Diabla · Fiesta en OVO</b><small>Eventos y nightlife</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Deporte y acción" data-id="activa-kids" data-dur="0:47" data-orient="Vertical" aria-label="Ver Activa Kids">
+        <img class="poster" src="media/thumbs/activa-kids.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/activa-kids.mp4"></video>
+        <span class="dur">0:47</span>
+        <span class="meta"><b>Activa Kids</b><small>Deporte y acción</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Deporte y acción" data-id="atletismo" data-dur="0:36" data-orient="Vertical" aria-label="Ver Atletismo">
+        <img class="poster" src="media/thumbs/atletismo.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/atletismo.mp4"></video>
+        <span class="dur">0:36</span>
+        <span class="meta"><b>Atletismo</b><small>Deporte y acción</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Deporte y acción" data-id="triatleta" data-dur="0:40" data-orient="Vertical" aria-label="Ver Triatleta 4K">
+        <img class="poster" src="media/thumbs/triatleta.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/triatleta.mp4"></video>
+        <span class="dur">0:40</span>
+        <span class="meta"><b>Triatleta 4K</b><small>Deporte y acción</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Deporte y acción" data-id="surf" data-dur="0:23" data-orient="Vertical" aria-label="Ver Escuela de surf">
+        <img class="poster" src="media/thumbs/surf.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/surf.mp4"></video>
+        <span class="dur">0:23</span>
+        <span class="meta"><b>Escuela de surf</b><small>Deporte y acción</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Drone y aéreo" data-id="drone-dji" data-dur="0:19" data-orient="Vertical" aria-label="Ver Drone DJI">
+        <img class="poster" src="media/thumbs/drone-dji.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/drone-dji.mp4"></video>
+        <span class="dur">0:19</span>
+        <span class="meta"><b>Drone DJI</b><small>Drone y aéreo</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Drone y aéreo" data-id="mavic" data-dur="0:18" data-orient="Vertical" aria-label="Ver Mavic">
+        <img class="poster" src="media/thumbs/mavic.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/mavic.mp4"></video>
+        <span class="dur">0:18</span>
+        <span class="meta"><b>Mavic</b><small>Drone y aéreo</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Drone y aéreo" data-id="vuelo-fpv" data-dur="0:11" data-orient="Vertical" aria-label="Ver Vuelo FPV">
+        <img class="poster" src="media/thumbs/vuelo-fpv.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/vuelo-fpv.mp4"></video>
+        <span class="dur">0:11</span>
+        <span class="meta"><b>Vuelo FPV</b><small>Drone y aéreo</small></span>
+      </button>
+      <button class="clip horizontal" data-cat="Viajes y paisajes" data-id="sunset" data-dur="0:26" data-orient="Horizontal" aria-label="Ver Atardecer">
+        <img class="poster" src="media/thumbs/sunset.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/sunset.mp4"></video>
+        <span class="dur">0:26</span>
+        <span class="meta"><b>Atardecer</b><small>Viajes y paisajes</small></span>
+      </button>
+      <button class="clip horizontal" data-cat="Viajes y paisajes" data-id="mar-serena" data-dur="0:15" data-orient="Horizontal" aria-label="Ver Mar sereno">
+        <img class="poster" src="media/thumbs/mar-serena.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/mar-serena.mp4"></video>
+        <span class="dur">0:15</span>
+        <span class="meta"><b>Mar sereno</b><small>Viajes y paisajes</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Viajes y paisajes" data-id="cruz-milenio" data-dur="0:30" data-orient="Vertical" aria-label="Ver Cruz del tercer milenio">
+        <img class="poster" src="media/thumbs/cruz-milenio.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/cruz-milenio.mp4"></video>
+        <span class="dur">0:30</span>
+        <span class="meta"><b>Cruz del tercer milenio</b><small>Viajes y paisajes</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Detrás de cámara" data-id="detras-camara" data-dur="0:56" data-orient="Vertical" aria-label="Ver Detrás de cámara">
+        <img class="poster" src="media/thumbs/detras-camara.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/detras-camara.mp4"></video>
+        <span class="dur">0:56</span>
+        <span class="meta"><b>Detrás de cámara</b><small>Detrás de cámara</small></span>
+      </button>
+      <button class="clip vertical" data-cat="Detrás de cámara" data-id="color-grading" data-dur="0:07" data-orient="Vertical" aria-label="Ver Color grading">
+        <img class="poster" src="media/thumbs/color-grading.jpg" alt="" loading="lazy" decoding="async">
+        <video class="preview" muted loop playsinline preload="none" src="media/preview/color-grading.mp4"></video>
+        <span class="dur">0:07</span>
+        <span class="meta"><b>Color grading</b><small>Detrás de cámara</small></span>
+      </button></div>
+    <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+  </section>
+
+  <section id="servicios" class="services">
+    <h2>Servicios</h2>
+    <ul class="svc">
+      <li><h3>Filmación y drone</h3><p>Cámara de cine, gimbal y drone en 4K, en locación o en tu espacio.</p><p class="equip">Equipo: Sony FX30 · Sony Alpha 7 IV · DJI Osmo 360 · DJI Osmo Pocket 4P · DJI Avata 2</p><ul class="incl"><li>Rodaje con audio</li><li>Tomas aéreas</li></ul></li>
+      <li><h3>Edición y montaje</h3><p>Ritmo, música y sonido pensados para retener en redes y en pantallas grandes.</p><ul class="incl"><li>Guion y cortes</li><li>Subtítulos y motion</li></ul></li>
+      <li><h3>Color y finalización</h3><p>Gradación con identidad visual para que tu marca se reconozca en cada cuadro.</p><ul class="incl"><li>Corrección de color</li><li>Versiones por plataforma</li></ul></li>
+      <li><h3>Contenido para marcas</h3><p>Reels, campañas, entrevistas y piezas verticales listas para publicar.</p><ul class="incl"><li>Reels y Stories</li><li>Entrevistas y testimonios</li></ul></li>
+    </ul>
+    <div class="gear">
+      <h3>Nuestro equipo</h3>
+      <div class="gear-grid">
+        <article>
+          <p class="gear-type">Cámara de cine</p>
+          <h4>Sony FX30</h4>
+          <p>Para entrevistas y publicidad con look de cine. Graba 4K y cámara lenta, y guarda más detalle en luces y sombras.</p>
+          <ul class="incl"><li>4K</li><li>Hasta 120 fps</li><li>Colores de cine</li></ul>
+        </article>
+        <article>
+          <p class="gear-type">Cámara full frame</p>
+          <h4>Sony Alpha 7 IV</h4>
+          <p>Para fotos de producto y video con poca luz. Sensor grande, que se ve limpio y con fondo desenfocado.</p>
+          <ul class="incl"><li>33 MP</li><li>4K 60 fps</li><li>Estabilización</li></ul>
+        </article>
+        <article>
+          <p class="gear-type">Cámara 360°</p>
+          <h4>DJI Osmo 360</h4>
+          <p>Para tomas dinámicas que se pueden reencuadrar después. Ideal para eventos y reels.</p>
+          <ul class="incl"><li>8K 360°</li><li>Hasta 183 g</li><li>Audio con micrófonos DJI</li></ul>
+        </article>
+        <article>
+          <p class="gear-type">Cámara de bolsillo</p>
+          <h4>DJI Osmo Pocket 4P</h4>
+          <p>Para grabar en movimiento, detrás de cámara y vlogs. Estabilizador de 3 ejes integrado.</p>
+          <ul class="incl"><li>4K 240 fps</li><li>Zoom</li><li>10 bits</li></ul>
+        </article>
+        <article>
+          <p class="gear-type">Drone FPV</p>
+          <h4>DJI Avata 2</h4>
+          <p>Para tomas rápidas y envolventes, como deporte y recorridos por terreno.</p>
+          <ul class="incl"><li>4K 60 fps HDR</li><li>155° de campo</li><li>Hasta 23 min</li></ul>
+        </article>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><b>Conversamos el objetivo</b><span>Público, plazo y presupuesto en una llamada corta.</span></li>
+      <li><b>Rodaje con guion</b><span>Plan de cámara y locación, según lo acordado.</span></li>
+      <li><b>Entrega con revisiones</b><span>Versiones para cada plataforma, con revisiones incluidas.</span></li>
+    </ol>
+  </section>
+
+  <section id="fotos" class="photos">
+    <h2>Fotografía</h2>
+      <div class="pgroup"><h3>Gastronomía y producto</h3><div class="masonry"><button class="ph" aria-label="Ver foto"><img src="media/photos/04.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/05.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/06.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/15.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/24.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/26.jpg" alt="" loading="lazy" decoding="async"></button></div></div>
+      <div class="pgroup"><h3>Eventos y retratos</h3><div class="masonry"><button class="ph" aria-label="Ver foto"><img src="media/photos/29.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/30.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/33.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/34.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/20.jpg" alt="" loading="lazy" decoding="async"></button></div></div>
+      <div class="pgroup"><h3>Paisajes y drone</h3><div class="masonry"><button class="ph" aria-label="Ver foto"><img src="media/photos/01.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/08.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/10.jpg" alt="" loading="lazy" decoding="async"></button><button class="ph" aria-label="Ver foto"><img src="media/photos/18.jpg" alt="" loading="lazy" decoding="async"></button></div></div>
+  </section>
+
+  <section id="historias" class="stories">
+    <h2>Historias</h2>
+    <p class="muted">Formato vertical para celular. Sigue el día a día en <a href="https://www.instagram.com/dlog_audiovisual/" target="_blank" rel="noopener">@dlog_audiovisual</a>.</p>
+    <div class="story-row"><button class="story" aria-label="Ver historia"><img src="media/historias/01_detalle.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/02_camara.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/03_retrato.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/04_gastronomia.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/05_equipo.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/06_rodaje.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/07_deporte.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/08_creador.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/09_cafe.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/10_drone.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/11_costa.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/12_accion.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/13_espacios.jpg" alt="" loading="lazy" decoding="async"></button><button class="story" aria-label="Ver historia"><img src="media/historias/14_creacion.jpg" alt="" loading="lazy" decoding="async"></button></div>
+  </section>
+
+  <section id="sobre" class="about">
+    <figure><img src="media/photos/30.jpg" alt="DLOG con cámara en mano" loading="lazy"></figure>
+    <div>
+      <h2>Filmo, edito y cuido el color de principio a fin.</h2>
+      <p>Soy DLOG. Trabajo solo o con equipo, según lo que pida el proyecto. Me interesa que el video se sienta real: luz natural cuando se puede, plano preciso cuando se necesita.</p>
+      <p>Desde la idea y el guion hasta la entrega en la plataforma donde va a vivir el contenido.</p>
+      <p>Cobertura en La Serena, Coquimbo, Santiago y Antofagasta. Para proyectos fuera de esas ciudades, escríbeme y lo vemos.</p>
+    </div>
+  </section>
+
+  <section id="contacto" class="contact">
+    <h2>¿Tienes un proyecto?</h2>
+    <p class="contact-lede">Cuéntame el objetivo, el plazo y el presupuesto. Respondo en menos de 24 horas.</p>
+    <div class="contact-actions">
+      <a class="btn big" href="https://wa.me/56942394968" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      <a class="btn big line" href="mailto:dlog.audiovisual@gmail.com">Escribir por correo</a>
+    </div>
+    <p class="contact-info"><a href="mailto:dlog.audiovisual@gmail.com">dlog.audiovisual@gmail.com</a> · <span class="nowrap">+56 9 4239 4968</span></p>
+    <p><a href="https://www.instagram.com/dlog_audiovisual/" target="_blank" rel="noopener">Instagram · @dlog_audiovisual</a></p>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>© 2026 DLOG Audiovisual</span>
+  <a href="#inicio">Volver arriba</a>
+</footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="Video">
+  <button class="close" aria-label="Cerrar">Cerrar</button>
+  <div class="modal-body">
+    <video id="mv" controls playsinline preload="none"></video>
+    <div class="modal-meta">
+      <div><small id="mcat"></small><h3 id="mtitle"></h3></div>
+      <a class="btn" href="#contacto">Quiero algo así</a>
+    </div>
+  </div>
+</div>
+<div class="modal photo" id="pmodal" hidden role="dialog" aria-modal="true" aria-label="Foto">
+  <button class="close" aria-label="Cerrar">Cerrar</button>
+  <img id="pimg" alt="">
+</div>
+
+<script src="portafolio.js?v=7"></script>
+</body>
+</html>
