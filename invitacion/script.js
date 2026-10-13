@@ -10,8 +10,8 @@
       {
         nombre: 'Ceremonia',
         hora: '17:00 hrs',
-        lugar: 'Iglesia San Francisco',
-        mapa: 'https://maps.google.com/?q=Iglesia+San+Francisco',
+        lugar: 'Catedral de La Serena · Gregorio Cordobés 3027, frente a la Plaza de Armas',
+        mapa: 'https://maps.google.com/?q=Catedral+de+La+Serena+Gregorio+Cordobes+3027',
         foto: 'fotos/ceremonia.jpg',
         frase: 'Aquí nos dijimos que sí, frente a las personas que más queremos.',
       },
