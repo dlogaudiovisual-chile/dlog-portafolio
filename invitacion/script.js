@@ -9,7 +9,7 @@
     escalas: [
       {
         nombre: 'Ceremonia',
-        hora: '17:30 hrs',
+        hora: '16:00 hrs',
         lugar: 'Catedral de La Serena · Gregorio Cordobés 3027, frente a la Plaza de Armas',
         mapa: 'https://maps.google.com/?q=Catedral+de+La+Serena+Gregorio+Cordobes+3027',
         foto: 'fotos/ceremonia.jpg',
@@ -17,7 +17,7 @@
       },
       {
         nombre: 'Fiesta',
-        hora: '19:00 hrs',
+        hora: '17:30 hrs',
         lugar: 'Arbórea · dirección por confirmar',
         mapa: 'https://maps.google.com/?q=Arbórea+La+Serena',
         foto: 'fotos/fiesta.jpg',
