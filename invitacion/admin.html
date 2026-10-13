@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Panel privado · Boda</title>
+  <style>
+    :root { --azul:#1d2b4f; --oro:#c9a45c; --papel:#f6efe1; --tinta:#2a2a33; --sello:#a8432f; --verde:#4f7a4a; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background:var(--papel); color:var(--tinta); font-size:15px; }
+    [hidden] { display:none !important; }
+    header { background:var(--azul); color:var(--oro); padding:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+    header h1 { font-size:1.1rem; margin:0; font-family:Georgia, serif; font-weight:normal; letter-spacing:.05em; }
+    main { max-width:960px; margin:0 auto; padding:16px; display:grid; gap:20px; }
+    section { background:#fff; border-radius:12px; padding:16px; box-shadow:0 6px 20px rgba(0,0,0,.06); }
+    h2 { margin:0 0 12px; font-size:1.05rem; }
+    .resumen { display:grid; grid-template-columns:repeat(auto-fit, minmax(130px,1fr)); gap:10px; }
+    .tarjeta-num { background:var(--papel); border-radius:10px; padding:12px; text-align:center; }
+    .tarjeta-num strong { display:block; font-size:1.6rem; font-family:Georgia, serif; }
+    .tarjeta-num small { opacity:.7; }
+    .cuenta { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; text-align:center; }
+    .cuenta span { display:block; font-size:1.5rem; font-variant-numeric:tabular-nums; font-family:Georgia, serif; }
+    .cuenta small { font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; opacity:.7; }
+    form.nuevo { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:8px; align-items:end; }
+    label { display:grid; gap:4px; font-size:.8rem; }
+    input, select, textarea { font:inherit; padding:9px 10px; border:1px solid #cfc6b3; border-radius:8px; background:#fff; color:var(--tinta); width:100%; }
+    button, .btn { font:inherit; cursor:pointer; padding:8px 12px; border-radius:8px; border:1px solid var(--azul); background:var(--azul); color:#fff; text-decoration:none; display:inline-block; font-size:.85rem; }
+    button.sec, .btn.sec { background:#fff; color:var(--azul); }
+    button.wa, .btn.wa { background:var(--verde); border-color:var(--verde); }
+    button.peligro { background:#fff; color:var(--sello); border-color:var(--sello); }
+    table { width:100%; border-collapse:collapse; font-size:.9rem; }
+    th, td { text-align:left; padding:8px 6px; border-bottom:1px solid #eee; vertical-align:top; }
+    th { font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; opacity:.6; }
+    .estado { display:inline-block; padding:2px 8px; border-radius:99px; font-size:.75rem; }
+    .estado--pendiente { background:#f3e7c9; color:#7a5a12; }
+    .estado--si { background:#dcebd6; color:var(--verde); }
+    .estado--no { background:#f3d7cf; color:var(--sello); }
+    .acciones { display:flex; gap:6px; flex-wrap:wrap; }
+    .lista { display:grid; gap:8px; }
+    .item { background:var(--papel); border-radius:8px; padding:10px 12px; }
+    .item small { opacity:.7; }
+    .aviso { font-size:.85rem; opacity:.8; margin:8px 0 0; }
+    .login { max-width:340px; margin:12vh auto; text-align:center; }
+    .login input { margin:12px 0; }
+    .tabla-wrap { overflow-x:auto; }
+    @media (max-width:640px) { .cuenta { grid-template-columns:repeat(2,1fr); } }
+  </style>
+</head>
+<body>
+
+  <!-- Acceso simple: protege la vista en este navegador, no es seguridad real -->
+  <section class="login" id="login" hidden>
+    <h2>Panel privado</h2>
+    <input id="clave" type="password" placeholder="Clave">
+    <button id="entrar" type="button">Entrar</button>
+    <p class="aviso" id="claveError" hidden>Clave incorrecta.</p>
+  </section>
+
+  <div id="panel" hidden>
+    <header>
+      <h1>Invitados · Camila &amp; Matías</h1>
+      <div class="cuenta" id="cuenta" role="timer" aria-label="Cuenta regresiva">
+        <div><span data-k="dias">00</span><small>días</small></div>
+        <div><span data-k="horas">00</span><small>horas</small></div>
+        <div><span data-k="minutos">00</span><small>min</small></div>
+        <div><span data-k="segundos">00</span><small>seg</small></div>
+      </div>
+    </header>
+
+    <main>
+      <section aria-labelledby="t-resumen">
+        <h2 id="t-resumen">Resumen</h2>
+        <div class="resumen">
+          <div class="tarjeta-num"><strong id="nTotal">0</strong><small>invitados</small></div>
+          <div class="tarjeta-num"><strong id="nSi">0</strong><small>confirmados</small></div>
+          <div class="tarjeta-num"><strong id="nNo">0</strong><small>no asisten</small></div>
+          <div class="tarjeta-num"><strong id="nPend">0</strong><small>sin responder</small></div>
+          <div class="tarjeta-num"><strong id="nPases">0</strong><small>pases confirmados</small></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="t-nuevo">
+        <h2 id="t-nuevo">Agregar invitado o familia</h2>
+        <form class="nuevo" id="formNuevo">
+          <label>Nombre o familia<input name="nombre" required maxlength="80" placeholder="Familia Pérez"></label>
+          <label>Pases<select name="pases"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+          <label>WhatsApp (con código país)<input name="telefono" inputmode="tel" placeholder="56912345678"></label>
+          <button type="submit">Agregar</button>
+        </form>
+        <p class="aviso" id="avisoNuevo" hidden></p>
+      </section>
+
+      <section aria-labelledby="t-lista">
+        <h2 id="t-lista">Invitados</h2>
+        <div class="tabla-wrap">
+          <table>
+            <thead><tr><th>Invitado</th><th>Pases</th><th>Estado</th><th>Enlace y envío</th></tr></thead>
+            <tbody id="filas"></tbody>
+          </table>
+        </div>
+        <p class="aviso">El enlace de cada invitado lleva su nombre y sus pases. Usa "WhatsApp" para enviarlo, o "Recordar" a quienes aún no responden.</p>
+      </section>
+
+      <section aria-labelledby="t-alergias">
+        <h2 id="t-alergias">Alergias y restricciones</h2>
+        <div class="lista" id="listaAlergias"></div>
+      </section>
+
+      <section aria-labelledby="t-mensajes">
+        <h2 id="t-mensajes">Mensajes de felicidades</h2>
+        <div class="lista" id="listaMensajes"></div>
+      </section>
+
+      <section aria-labelledby="t-exp">
+        <h2 id="t-exp">Datos</h2>
+        <div class="acciones">
+          <button class="sec" id="exportar" type="button">Exportar respaldo (JSON)</button>
+          <button class="peligro" id="borrarTodo" type="button">Borrar todo</button>
+        </div>
+        <p class="aviso">Los datos se guardan solo en este navegador. Para ver respuestas de todos los invitados desde cualquier dispositivo se necesita un backend.</p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      // ---------- Configuración ----------
+      const CLAVE_ADMIN = 'cambiar-esta-clave';
+      const FECHA_BODA = new Date('2027-03-14T16:00:00-03:00');
+      const DATOS = 'admin-boda-invitados';
+      const RSVP = 'pasaporte-boda-rsvp';
+
+      const $ = (id) => document.getElementById(id);
+      const escapar = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+      const leer = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (_) { return d; } };
+      const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (_) {} };
+
+      // ---------- Acceso ----------
+      if (sessionStorage.getItem('admin-ok') === '1') mostrarPanel();
+      else $('login').hidden = false;
+      $('entrar').addEventListener('click', () => {
+        if ($('clave').value === CLAVE_ADMIN) {
+          try { sessionStorage.setItem('admin-ok', '1'); } catch (_) {}
+          mostrarPanel();
+        } else {
+          $('claveError').hidden = false;
+        }
+      });
+      $('clave').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('entrar').click(); });
+
+      function mostrarPanel() {
+        $('login').hidden = true;
+        $('panel').hidden = false;
+        render();
+        actualizarCuenta();
+        setInterval(actualizarCuenta, 1000);
+      }
+
+      // ---------- Datos ----------
+      let invitados = leer(DATOS, []);
+      const guardarInvitados = () => guardar(DATOS, invitados);
+      const respuestas = () => leer(RSVP, []);
+
+      // Estado de cada invitado según sus respuestas (por campo "invitado")
+      function estadoDe(inv) {
+        const r = respuestas().filter((x) => x.invitado === inv.id).slice(-1)[0];
+        if (!r) return { estado: 'pendiente' };
+        return { estado: r.asiste ? 'si' : 'no', respuesta: r };
+      }
+
+      // ---------- Enlaces y mensajes ----------
+      function enlaceDe(inv) {
+        const base = location.href.replace(/admin\.html.*$/, 'index.html');
+        const q = new URLSearchParams({ inv: inv.id, para: inv.nombre, pases: inv.pases });
+        return `${base}?${q.toString()}`;
+      }
+      function mensajeInvitacion(inv) {
+        return `Hola ${inv.nombre}, con mucho cariño te invitamos a nuestra boda. Abre tu pasaporte personalizado aquí: ${enlaceDe(inv)}`;
+      }
+      function mensajeRecordatorio(inv) {
+        return `Hola ${inv.nombre}, te recordamos confirmar tu asistencia a nuestra boda. Tu pasaporte: ${enlaceDe(inv)}`;
+      }
+      function linkWhatsApp(inv, texto) {
+        const tel = (inv.telefono || '').replace(/\D/g, '');
+        const destino = tel ? `https://wa.me/${tel}` : 'https://wa.me/';
+        return `${destino}?text=${encodeURIComponent(texto)}`;
+      }
+
+      // ---------- Render ----------
+      function render() {
+        const filas = invitados.map((inv) => {
+          const { estado } = estadoDe(inv);
+          const etiqueta = { pendiente: 'Pendiente', si: 'Asiste', no: 'No asiste' }[estado];
+          const puedeRecordar = estado === 'pendiente';
+          return `
+            <tr>
+              <td><strong>${escapar(inv.nombre)}</strong><br><small>${escapar(inv.telefono || 'sin teléfono')}</small></td>
+              <td>${inv.pases}</td>
+              <td><span class="estado estado--${estado}">${etiqueta}</span></td>
+              <td>
+                <div class="acciones">
+                  <a class="btn wa" target="_blank" rel="noopener" href="${linkWhatsApp(inv, mensajeInvitacion(inv))}">WhatsApp</a>
+                  ${puedeRecordar ? `<a class="btn sec" target="_blank" rel="noopener" href="${linkWhatsApp(inv, mensajeRecordatorio(inv))}">Recordar</a>` : ''}
+                  <button class="sec" data-copiar="${escapar(inv.id)}" type="button">Copiar enlace</button>
+                  <button class="peligro" data-borrar="${escapar(inv.id)}" type="button">Quitar</button>
+                </div>
+              </td>
+            </tr>`;
+        }).join('');
+        $('filas').innerHTML = filas || '<tr><td colspan="4">Aún no hay invitados. Agrega el primero arriba.</td></tr>';
+
+        const conEstado = invitados.map((inv) => ({ inv, ...estadoDe(inv) }));
+        const si = conEstado.filter((x) => x.estado === 'si');
+        $('nTotal').textContent = invitados.length;
+        $('nSi').textContent = si.length;
+        $('nNo').textContent = conEstado.filter((x) => x.estado === 'no').length;
+        $('nPend').textContent = conEstado.filter((x) => x.estado === 'pendiente').length;
+        $('nPases').textContent = si.reduce((n, x) => n + (x.respuesta.personas || 0), 0);
+
+        const todas = respuestas();
+        const conAlergia = todas.filter((r) => r.alergias);
+        $('listaAlergias').innerHTML = conAlergia.length
+          ? conAlergia.map((r) => `<div class="item"><strong>${escapar(r.nombre)}</strong><br>${escapar(r.alergias)}</div>`).join('')
+          : '<p class="aviso">Sin alergias o restricciones registradas.</p>';
+
+        const conMensaje = todas.filter((r) => r.mensaje);
+        $('listaMensajes').innerHTML = conMensaje.length
+          ? conMensaje.map((r) => `<div class="item"><strong>${escapar(r.nombre)}</strong><br>${escapar(r.mensaje)}</div>`).join('')
+          : '<p class="aviso">Aún no hay mensajes.</p>';
+      }
+
+      // ---------- Acciones ----------
+      $('formNuevo').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const f = new FormData(e.target);
+        const nombre = (f.get('nombre') || '').toString().trim();
+        if (!nombre) return;
+        invitados.push({
+          id: Math.random().toString(36).slice(2, 10),
+          nombre,
+          pases: Number(f.get('pases')) || 1,
+          telefono: (f.get('telefono') || '').toString().trim(),
+        });
+        guardarInvitados();
+        e.target.reset();
+        render();
+      });
+
+      $('filas').addEventListener('click', async (e) => {
+        const copiar = e.target.dataset.copiar;
+        const borrar = e.target.dataset.borrar;
+        if (copiar) {
+          const inv = invitados.find((x) => x.id === copiar);
+          try { await navigator.clipboard.writeText(enlaceDe(inv)); e.target.textContent = 'Copiado'; }
+          catch (_) { prompt('Copia el enlace:', enlaceDe(inv)); }
+        }
+        if (borrar && confirm('¿Quitar a este invitado?')) {
+          invitados = invitados.filter((x) => x.id !== borrar);
+          guardarInvitados();
+          render();
+        }
+      });
+
+      $('exportar').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify({ invitados, respuestas: respuestas() }, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'respaldo-boda.json';
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      });
+
+      $('borrarTodo').addEventListener('click', () => {
+        if (!confirm('Esto borra invitados y respuestas de este navegador. ¿Continuar?')) return;
+        invitados = [];
+        guardarInvitados();
+        try { localStorage.removeItem(RSVP); } catch (_) {}
+        render();
+      });
+
+      // ---------- Cuenta regresiva ----------
+      function actualizarCuenta() {
+        const seg = Math.floor(Math.max(0, FECHA_BODA - new Date()) / 1000);
+        const d = (n) => String(n).padStart(2, '0');
+        document.querySelector('[data-k="dias"]').textContent = d(Math.floor(seg / 86400));
+        document.querySelector('[data-k="horas"]').textContent = d(Math.floor((seg % 86400) / 3600));
+        document.querySelector('[data-k="minutos"]').textContent = d(Math.floor((seg % 3600) / 60));
+        document.querySelector('[data-k="segundos"]').textContent = d(seg % 60);
+      }
+    })();
+  </script>
+</body>
+</html>

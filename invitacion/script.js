@@ -49,6 +49,14 @@
     mensajeSecreto: 'Lo que viene no es una boda sola: es el primer capítulo de un viaje que queremos hacer con ustedes.',
   };
 
+  // Enlace personalizado del invitado: index.html?inv=ID&para=NOMBRE&pases=N
+  const params = new URLSearchParams(location.search);
+  const invitado = {
+    id: params.get('inv') || '',
+    nombre: params.get('para') || '',
+    pases: Math.min(4, Math.max(1, Number(params.get('pases')) || 1)),
+  };
+
   const CLAVE_RSVP = 'pasaporte-boda-rsvp';
   const CLAVE_SELLOS = 'pasaporte-boda-sellos';
 
@@ -315,8 +323,10 @@
     const respuesta = {
       nombre,
       asiste: asiste === 'si',
+      invitado: invitado.id,
       personas: asiste === 'si' ? Number(datos.get('personas')) : 0,
       alergias: (datos.get('alergias') || '').toString().trim(),
+      mensaje: (datos.get('mensaje') || '').toString().trim(),
       fecha: new Date().toISOString(),
     };
     // Demostración: se guarda solo en este navegador. Para recibir las
@@ -356,6 +366,11 @@
 
   // ---------- Inicio ----------
   renderSellos();
+  // Precarga el nombre del invitado desde su enlace personalizado
+  if (invitado.nombre) {
+    inputNombre.value = invitado.nombre;
+    inputNombre.dispatchEvent(new Event('input'));
+  }
   // Restaura el estado de los sellos ya sellados (y el vuelo si estaba completo)
   if (sellados.size === CONFIG.sellos.length) desbloquearVuelo();
   else avion.disabled = true;
