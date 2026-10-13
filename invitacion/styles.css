@@ -211,7 +211,16 @@ section + section { margin-top: 72px; }
   border-radius: 2px;
   background: linear-gradient(160deg, var(--piedra), var(--azul-suave));
 }
-.datos__foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; display: block; }
+.datos__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+  display: block;
+  /* Los bordes se desvanecen para que las argollas queden en el centro */
+  -webkit-mask-image: radial-gradient(ellipse 52% 42% at 50% 55%, #000 60%, transparent 100%);
+          mask-image: radial-gradient(ellipse 52% 42% at 50% 55%, #000 60%, transparent 100%);
+}
 .datos__foto.sin-foto img { display: none; }
 .datos__lista { margin: 0; display: grid; gap: 14px; }
 .datos__lista div { border-bottom: 1px solid color-mix(in srgb, var(--bronce) 25%, transparent); padding-bottom: 8px; }
