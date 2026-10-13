@@ -48,7 +48,19 @@ body {
   background: radial-gradient(circle at 50% 30%, var(--azul-claro), var(--azul) 70%);
   transition: opacity .9s ease, visibility .9s;
 }
-.escena--tapa.is-saliendo { opacity: 0; visibility: hidden; }
+.escena--tapa { perspective: 1200px; }
+.escena--tapa.is-saliendo { opacity: 0; visibility: hidden; transition-delay: .4s; }
+.escena--tapa.is-saliendo .pasaporte-tapa {
+  transform: rotateY(-110deg) translateX(-30px);
+  transform-origin: left center;
+  transition: transform 1s cubic-bezier(.5, 0, .2, 1);
+}
+/* Respiración suave de la tapa mientras espera */
+.pasaporte-tapa { animation: respirar 4s ease-in-out infinite; }
+@keyframes respirar {
+  0%, 100% { box-shadow: 0 30px 60px rgba(0,0,0,.45), inset 4px 0 0 rgba(0,0,0,.35); }
+  50% { box-shadow: 0 40px 80px rgba(0,0,0,.55), inset 4px 0 0 rgba(0,0,0,.35), 0 0 40px rgba(201,164,92,.25); }
+}
 
 .pasaporte-tapa {
   all: unset;
@@ -242,6 +254,23 @@ section + section { margin-top: 56px; }
   height: 2px;
   background: repeating-linear-gradient(90deg, var(--azul-claro) 0 8px, transparent 8px 16px);
 }
+/* Estela dorada que el avión deja al volar */
+.ruta__estela {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, transparent, var(--oro));
+  border-radius: 2px;
+  transition: width 2.2s cubic-bezier(.5, 0, .3, 1);
+}
+.ruta__parada--2.is-alcanzada,
+.ruta__parada--1.is-alcanzada { animation: pulso .9s ease 2; }
+@keyframes pulso {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.15); }
+}
 .ruta__parada {
   position: absolute;
   top: -30px;
@@ -273,12 +302,26 @@ section + section { margin-top: 56px; }
   transition: left 2.2s cubic-bezier(.5, 0, .3, 1), transform .3s ease;
 }
 .avion:focus-visible { outline: 3px solid var(--oro); outline-offset: 4px; }
-.avion.is-volando { transform: translate(-50%, -50%) rotate(45deg); }
+.avion.is-volando { animation: vuelo .6s ease-in-out infinite alternate; }
+@keyframes vuelo {
+  from { transform: translate(-50%, -50%) rotate(40deg) translateY(-3px); }
+  to   { transform: translate(-50%, -50%) rotate(50deg) translateY(3px); }
+}
+/* Avión en reposo: flota un poco para invitar a tocarlo */
+.avion:not(:disabled):not(.is-volando) { animation: flotar 2.4s ease-in-out infinite; }
+@keyframes flotar {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-6px); }
+}
 .avion:disabled { cursor: default; opacity: .6; }
 
 .destino {
   margin-top: 24px;
-  animation: entrada .9s ease both;
+  animation: aterrizar .9s cubic-bezier(.2, 1.2, .4, 1) both;
+}
+@keyframes aterrizar {
+  from { opacity: 0; transform: translateY(30px) scale(.94); }
+  to   { opacity: 1; transform: none; }
 }
 .destino__foto {
   aspect-ratio: 16 / 10;

@@ -94,7 +94,7 @@
   abrirBtn.addEventListener('click', () => {
     tapa.classList.add('is-saliendo');
     viaje.hidden = false;
-    setTimeout(() => { tapa.hidden = true; }, 900);
+    setTimeout(() => { tapa.hidden = true; }, 1500);
     try { sessionStorage.setItem('pasaporte-abierto', '1'); } catch (_) {}
     inputNombre.focus({ preventScroll: true });
   });
@@ -208,9 +208,12 @@
     vueloTexto.textContent = `Rumbo a ${escala.nombre}…`;
     avion.classList.add('is-volando');
     avion.style.left = i === 0 ? '50%' : '100%';
+    $('estela').style.width = i === 0 ? '50%' : '100%';
 
     setTimeout(() => {
       avion.classList.remove('is-volando');
+      const parada = $(i === 0 ? 'rutaParada1' : 'rutaParada2');
+      parada.classList.add('is-alcanzada');
       revelarEscala(i);
       if (i + 1 < CONFIG.escalas.length) {
         setTimeout(() => volarA(i + 1), 1200);
