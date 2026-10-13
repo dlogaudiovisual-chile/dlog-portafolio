@@ -1,8 +1,8 @@
 /* Mediterráneo elegante: marfil cálido, azul profundo, bronce y piedra.
    Tipografía: Cormorant Garamond (títulos) + Jost (texto y etiquetas). */
 :root {
-  --marfil: #FDF8F0;
-  --piedra: #e7dccb;
+  --marfil: #EADDC4;
+  --piedra: #D9C6A1;
   --bronce: #C9A84C;
   --azul: #1C3557;
   --azul-suave: #34506c;
@@ -78,7 +78,7 @@ p { margin: 0; }
   place-items: center;
   padding: 24px 16px;
   background:
-    radial-gradient(120% 80% at 50% 0%, #fffdf8 0%, var(--marfil) 55%, var(--piedra) 100%);
+    radial-gradient(120% 80% at 50% 0%, #F4EADA 0%, var(--marfil) 55%, var(--piedra) 100%);
   transition: opacity .9s ease, visibility .9s;
 }
 /* Al abrir, la portada queda fija encima de la invitación y se retira */
@@ -107,7 +107,7 @@ p { margin: 0; }
   gap: 10px;
   text-align: center;
   padding: 44px 28px;
-  background: linear-gradient(170deg, #fffdf8 0%, var(--marfil) 70%, var(--piedra) 100%);
+  background: linear-gradient(170deg, #F4EADA 0%, var(--marfil) 70%, var(--piedra) 100%);
   color: var(--azul);
   border-radius: 2px;
   box-shadow: 0 30px 60px -20px var(--sombra);
@@ -193,7 +193,7 @@ section + section { margin-top: 72px; }
 
 /* ---------- Página de datos ---------- */
 .pagina {
-  background: #fffdf8;
+  background: #F4EADA;
   border: 1px solid color-mix(in srgb, var(--bronce) 40%, transparent);
   padding: 36px 28px 28px;
   box-shadow: 0 24px 50px -28px var(--sombra);
@@ -252,7 +252,7 @@ section + section { margin-top: 72px; }
   gap: 18px;
   align-items: center;
   padding: 18px;
-  background: #fffdf8;
+  background: #F4EADA;
   border: 1px solid color-mix(in srgb, var(--bronce) 30%, transparent);
   transition: box-shadow .4s ease, border-color .4s ease;
 }
@@ -399,7 +399,7 @@ section + section { margin-top: 72px; }
 
 .tarjeta {
   text-align: left;
-  background: #fffdf8;
+  background: #F4EADA;
   max-width: 540px;
   margin: 0 auto 40px;
   border: 1px solid color-mix(in srgb, var(--bronce) 40%, transparent);
@@ -446,7 +446,7 @@ section + section { margin-top: 72px; }
   margin-top: 28px;
   padding: 36px 28px;
   text-align: center;
-  background: #fffdf8;
+  background: #F4EADA;
   border: 1px solid color-mix(in srgb, var(--bronce) 40%, transparent);
   animation: entrada 1s ease both;
 }
