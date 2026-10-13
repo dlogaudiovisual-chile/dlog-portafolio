@@ -1,7 +1,7 @@
 (() => {
   // ---------- CONFIGURACIÓN: cambia aquí todos los datos ----------
   const CONFIG = {
-    novios: 'Camila & Matías',
+    novios: 'Cristopher & Catalina',
     fechaBoda: '2027-03-14T17:00:00-03:00',
     fechaTexto: 'Sábado 14 · Marzo 2027',
     vuelo: 'VUELO 2027',
@@ -41,7 +41,7 @@
       {
         ciudad: 'Frente al mar, 2026',
         foto: 'fotos/viaje-3.jpg',
-        texto: 'Matías le preguntó a Camila al atardecer, y ella dijo que sí antes de que terminara la frase.',
+        texto: 'Cristopher le preguntó a Catalina al atardecer, y ella dijo que sí antes de que terminara la frase.',
         sorpresa: 'Tercer sello: el viaje que ahora queremos compartir contigo.',
       },
     ],
