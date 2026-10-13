@@ -3,82 +3,121 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Invitación de Boda · Camila & Matías</title>
-  <meta name="description" content="Estás invitado a nuestra boda. Confirma tu asistencia.">
+  <title>Pasaporte de Boda · Camila & Matías</title>
+  <meta name="description" content="Estás invitado al inicio de nuestro viaje de vida.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Sobre de entrada -->
-  <section id="sobre" class="sobre" aria-label="Abrir invitación">
-    <div class="sobre__caja">
-      <p class="sobre__pre">Tienes una invitación</p>
-      <button class="sobre__tapa" id="abrirSobre" type="button" aria-expanded="false">
-        <span class="sobre__nombres">C <span>&amp;</span> M</span>
-        <span class="sobre__hint">Toca para abrir</span>
-      </button>
-    </div>
+  <!-- 1. Tapa del pasaporte -->
+  <section id="tapa" class="escena escena--tapa" aria-label="Pasaporte cerrado">
+    <button class="pasaporte-tapa" id="abrirPasaporte" type="button">
+      <span class="tapa__emblema" aria-hidden="true">✈</span>
+      <span class="tapa__titulo">Pasaporte</span>
+      <span class="tapa__sub">Del amor</span>
+      <span class="tapa__nombres">Camila <em>&amp;</em> Matías</span>
+      <span class="tapa__hint">Toca para abrir</span>
+    </button>
   </section>
 
-  <main id="invitacion" class="invitacion" hidden>
+  <main id="viaje" class="viaje" hidden>
 
-    <header class="hero">
-      <p class="hero__pre">Nos casamos</p>
-      <h1 class="hero__nombres">Camila <span>&amp;</span> Matías</h1>
-      <p class="hero__fecha">Sábado 14 de marzo · 2027</p>
-    </header>
+    <!-- 2. Página de datos del viajero -->
+    <section class="pagina pagina--datos" aria-labelledby="t-datos">
+      <p class="pagina__cabecera">Pasaporte · Viaje de vida</p>
+      <div class="datos">
+        <div class="datos__foto">
+          <img src="fotos/portada.jpg" alt="Camila y Matías" onerror="this.parentElement.classList.add('sin-foto')">
+        </div>
+        <dl class="datos__lista">
+          <div><dt>Tipo</dt><dd>Viajero especial</dd></div>
+          <div><dt>Nombres</dt><dd id="nombreViajero">Escribe tu nombre</dd></div>
+          <div><dt>Destino</dt><dd id="destinoTexto"></dd></div>
+          <div><dt>Salida</dt><dd id="salidaTexto"></dd></div>
+          <div><dt>Motivo</dt><dd>Casamiento</dd></div>
+        </dl>
+      </div>
+      <label class="campo-viajero">
+        <span>Escribe tu nombre para sellar tu pasaporte</span>
+        <input id="inputNombre" type="text" maxlength="40" autocomplete="name" placeholder="Tu nombre">
+      </label>
+    </section>
 
-    <section class="bloque" aria-labelledby="t-cuenta">
-      <h2 id="t-cuenta" class="bloque__titulo">Faltan</h2>
-      <div class="cuenta" id="cuenta" role="timer" aria-live="off">
+    <!-- 3. Sellos: cada recuerdo es un sello -->
+    <section class="sellos" aria-labelledby="t-sellos">
+      <h2 id="t-sellos" class="titulo-seccion">Nuestros viajes</h2>
+      <p class="instruccion">Toca cada sello para ver el recuerdo. Cada uno guarda una sorpresa.</p>
+      <div id="listaSellos" class="lista-sellos"></div>
+      <p class="progreso" id="progreso" aria-live="polite"></p>
+    </section>
+
+    <!-- 4. Vuelo al destino -->
+    <section class="vuelo" aria-labelledby="t-vuelo">
+      <h2 id="t-vuelo" class="titulo-seccion">Próximo destino</h2>
+      <div class="ruta" id="ruta" aria-label="Ruta del vuelo">
+        <span class="ruta__punto ruta__punto--origen">Hoy</span>
+        <div class="ruta__linea">
+          <button class="avion" id="avion" type="button" aria-label="Despegar el avión">✈</button>
+        </div>
+        <span class="ruta__punto ruta__punto--destino" id="rutaDestino">Destino</span>
+      </div>
+      <p class="instruccion" id="vueloTexto">Toca el avión para despegar.</p>
+      <div class="destino" id="destinoRevelado" hidden>
+        <div class="destino__foto" id="destinoFoto"></div>
+        <p class="destino__frase" id="destinoFrase"></p>
+      </div>
+    </section>
+
+    <!-- 5. Tarjeta de embarque: invitación final -->
+    <section class="embarque" id="embarque" aria-labelledby="t-embarque" hidden>
+      <h2 id="t-embarque" class="pregunta">¿Quieres formar parte del inicio de nuestro viaje de vida?</h2>
+      <div class="botones-pregunta">
+        <button class="btn" id="siQuiero" type="button">Sí, quiero</button>
+        <button class="btn btn--ghost" id="conGusto" type="button">Con gusto</button>
+      </div>
+
+      <article class="tarjeta" id="tarjeta" hidden>
+        <header class="tarjeta__cabecera">
+          <span>Tarjeta de embarque</span>
+          <span id="tarjetaVuelo">VUELO 2027</span>
+        </header>
+        <div class="tarjeta__cuerpo">
+          <div><small>Pasajero</small><strong id="tarjetaNombre">—</strong></div>
+          <div><small>Desde</small><strong>Santiago</strong></div>
+          <div><small>Hasta</small><strong id="tarjetaDestino">—</strong></div>
+          <div><small>Fecha</small><strong id="tarjetaFecha">—</strong></div>
+          <div><small>Ceremonia</small><strong id="tarjetaHora">—</strong></div>
+          <div><small>Puerta</small><strong>Iglesia San Francisco</strong></div>
+          <div><small>Asiento</small><strong>14A</strong></div>
+          <div><small>Celebración</small><strong id="tarjetaLugar">—</strong></div>
+        </div>
+        <div class="tarjeta__acciones">
+          <button class="btn btn--ghost" id="agendar" type="button">Guardar en calendario</button>
+          <a class="btn btn--ghost" id="comoLlegar" href="#" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+      </article>
+
+      <div class="cuenta" id="cuenta" role="timer" aria-label="Cuenta regresiva al viaje">
         <div><span data-k="dias">00</span><small>días</small></div>
         <div><span data-k="horas">00</span><small>horas</small></div>
         <div><span data-k="minutos">00</span><small>min</small></div>
         <div><span data-k="segundos">00</span><small>seg</small></div>
       </div>
-    </section>
 
-    <section class="bloque" aria-labelledby="t-lugar">
-      <h2 id="t-lugar" class="bloque__titulo">Ceremonia y celebración</h2>
-      <p class="texto">Iglesia San Francisco · 17:00 hrs<br>Luego, recepción en Viña Los Olivos · 19:00 hrs</p>
-      <div class="acciones">
-        <a class="btn" href="https://maps.google.com/?q=Viña+Los+Olivos" target="_blank" rel="noopener">Cómo llegar</a>
-        <button class="btn btn--ghost" type="button" id="agendar">Guardar fecha</button>
-      </div>
-    </section>
-
-    <section class="bloque" aria-labelledby="t-galeria">
-      <h2 id="t-galeria" class="bloque__titulo">Nuestra historia</h2>
-      <div class="historia" id="historia">
-        <article class="historia__item">
-          <span class="historia__ano">2019</span>
-          <p>Nos conocimos en una biblioteca, por un libro que los dos queríamos.</p>
-        </article>
-        <article class="historia__item">
-          <span class="historia__ano">2023</span>
-          <p>Viajamos juntos por primera vez. Nos perdimos, y fue lo mejor del viaje.</p>
-        </article>
-        <article class="historia__item">
-          <span class="historia__ano">2026</span>
-          <p>Matías le pidió matrimonio frente al mar, al atardecer.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="bloque" aria-labelledby="t-rsvp">
-      <h2 id="t-rsvp" class="bloque__titulo">¿Nos acompañas?</h2>
+      <!-- RSVP -->
       <form id="rsvp" class="rsvp" novalidate>
+        <h3 class="titulo-seccion titulo-seccion--pequeno">Confirma tu lugar a bordo</h3>
         <label class="campo">
           <span>Nombre</span>
-          <input name="nombre" type="text" autocomplete="name" required maxlength="80">
+          <input name="nombre" type="text" autocomplete="name" maxlength="80">
         </label>
         <fieldset class="campo campo--opciones">
-          <legend>¿Asistirás?</legend>
-          <label><input type="radio" name="asiste" value="si" required> Sí, allí estaré</label>
+          <legend>¿Viajas con nosotros?</legend>
+          <label><input type="radio" name="asiste" value="si"> Sí, allí estaré</label>
           <label><input type="radio" name="asiste" value="no"> No podré ir</label>
         </fieldset>
         <label class="campo" id="campoPersonas">
-          <span>Número de personas</span>
+          <span>Número de pasajeros</span>
           <select name="personas">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -94,15 +133,19 @@
         <button class="btn btn--full" type="submit">Confirmar</button>
       </form>
       <div class="rsvp__gracias" id="gracias" hidden>
-        <p class="gracias__titulo">¡Gracias!</p>
-        <p class="texto" id="graciasTexto"></p>
+        <p class="gracias__titulo">¡Buen viaje!</p>
+        <p id="graciasTexto"></p>
       </div>
     </section>
 
-    <footer class="pie">
-      <p>Con amor, Camila y Matías</p>
-    </footer>
+    <footer class="pie">Con amor, Camila y Matías</footer>
   </main>
+
+  <!-- Sello secreto: aparece al completar todos los sellos -->
+  <div class="sorpresa" id="sorpresa" hidden>
+    <p class="sorpresa__texto" id="sorpresaTexto"></p>
+    <button class="btn btn--ghost" id="cerrarSorpresa" type="button">Cerrar</button>
+  </div>
 
   <script src="script.js"></script>
 </body>

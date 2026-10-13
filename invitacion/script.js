@@ -1,36 +1,249 @@
 (() => {
-  // Fecha de la boda (zona horaria de Chile)
-  const FECHA_BODA = new Date('2027-03-14T17:00:00-03:00');
-  const CLAVE_RSVP = 'invitacion-boda-rsvp';
+  // ---------- CONFIGURACIÓN: cambia aquí todos los datos ----------
+  const CONFIG = {
+    novios: 'Camila & Matías',
+    salida: 'Santiago',
+    destino: 'Kioto, Japón',           // destino X del vuelo
+    fraseDestino: 'Ahí empezó todo lo que queremos vivir juntos.',
+    fechaBoda: '2027-03-14T17:00:00-03:00',
+    fechaTexto: 'Sábado 14 · Marzo 2027',
+    hora: '17:00 hrs',
+    lugar: 'Viña Los Olivos · 19:00 hrs',
+    mapa: 'https://maps.google.com/?q=Viña+Los+Olivos',
+    vuelo: 'VUELO 2027',
+    // Sellos: cada uno es un recuerdo con foto propia en fotos/
+    sellos: [
+      {
+        ciudad: 'Kioto, 2019',
+        foto: 'fotos/viaje-1.jpg',
+        texto: 'Nos perdimos entre templos y terminamos riéndonos en la misma calle que nunca encontramos.',
+        sorpresa: 'Primer sello: la aventura siempre empieza con un "¿y si nos perdemos?".',
+      },
+      {
+        ciudad: 'Patagonia, 2023',
+        foto: 'fotos/viaje-2.jpg',
+        texto: 'Tres días de viento, cerros y un atardecer que no queríamos que terminara.',
+        sorpresa: 'Segundo sello: hay viajes que se miden en silencios cómodos.',
+      },
+      {
+        ciudad: 'Frente al mar, 2026',
+        foto: 'fotos/viaje-3.jpg',
+        texto: 'Matías le preguntó a Camila al atardecer, y ella dijo que sí antes de que terminara la frase.',
+        sorpresa: 'Tercer sello: el viaje que ahora queremos compartir contigo.',
+      },
+    ],
+    // Mensaje secreto al completar todos los sellos
+    mensajeSecreto: 'Lo que viene no es una boda sola: es el primer capítulo de un viaje que queremos hacer con ustedes.',
+  };
 
-  const sobre = document.getElementById('sobre');
-  const abrir = document.getElementById('abrirSobre');
-  const invitacion = document.getElementById('invitacion');
+  const CLAVE_RSVP = 'pasaporte-boda-rsvp';
+  const CLAVE_SELLOS = 'pasaporte-boda-sellos';
 
-  // ---------- Abrir sobre ----------
-  function abrirInvitacion() {
-    abrir.setAttribute('aria-expanded', 'true');
-    sobre.classList.add('is-abierto');
-    invitacion.hidden = false;
-    setTimeout(() => { sobre.hidden = true; }, 900);
-    observarHistoria();
-    lanzarConfeti(60);
+  const $ = (id) => document.getElementById(id);
+  const tapa = $('tapa');
+  const viaje = $('viaje');
+  const abrirBtn = $('abrirPasaporte');
+  const inputNombre = $('inputNombre');
+  const listaSellos = $('listaSellos');
+  const progreso = $('progreso');
+  const avion = $('avion');
+  const vueloTexto = $('vueloTexto');
+  const destinoRevelado = $('destinoRevelado');
+  const embarque = $('embarque');
+  const tarjeta = $('tarjeta');
+  const sorpresa = $('sorpresa');
+
+  // ---------- Estado (solo en este navegador) ----------
+  function leer(clave, valorPorDefecto) {
+    try { return JSON.parse(localStorage.getItem(clave)) ?? valorPorDefecto; }
+    catch (_) { return valorPorDefecto; }
+  }
+  function guardar(clave, valor) {
+    try { localStorage.setItem(clave, JSON.stringify(valor)); } catch (_) {}
+  }
+  let sellados = new Set(leer(CLAVE_SELLOS, []));
+  let nombreViajero = '';
+
+  // ---------- Textos base ----------
+  $('destinoTexto').textContent = CONFIG.destino;
+  $('salidaTexto').textContent = CONFIG.fechaTexto;
+  $('rutaDestino').textContent = CONFIG.destino;
+  $('tarjetaVuelo').textContent = CONFIG.vuelo;
+  $('tarjetaDestino').textContent = CONFIG.destino;
+  $('tarjetaFecha').textContent = CONFIG.fechaTexto;
+  $('tarjetaHora').textContent = CONFIG.hora;
+  $('tarjetaLugar').textContent = CONFIG.lugar;
+  $('comoLlegar').href = CONFIG.mapa;
+
+  // ---------- 1. Abrir pasaporte ----------
+  abrirBtn.addEventListener('click', () => {
+    tapa.classList.add('is-saliendo');
+    viaje.hidden = false;
+    setTimeout(() => { tapa.hidden = true; }, 900);
+    try { sessionStorage.setItem('pasaporte-abierto', '1'); } catch (_) {}
+    inputNombre.focus({ preventScroll: true });
+  });
+
+  try {
+    if (sessionStorage.getItem('pasaporte-abierto') === '1') {
+      tapa.hidden = true;
+      viaje.hidden = false;
+    }
+  } catch (_) {}
+
+  // ---------- 2. Nombre del viajero ----------
+  inputNombre.addEventListener('input', () => {
+    nombreViajero = inputNombre.value.trim();
+    $('nombreViajero').textContent = nombreViajero || 'Escribe tu nombre';
+    $('tarjetaNombre') && ($('tarjetaNombre').textContent = nombreViajero || '—');
+    form.nombre.value = nombreViajero;
+  });
+
+  // ---------- 3. Sellos ----------
+  function renderSellos() {
+    listaSellos.innerHTML = '';
+    CONFIG.sellos.forEach((s, i) => {
+      const boton = document.createElement('button');
+      boton.type = 'button';
+      boton.className = 'sello';
+      boton.dataset.indice = i;
+      const estaSellado = sellados.has(i);
+      if (estaSellado) boton.classList.add('is-sellado');
+      boton.setAttribute('aria-expanded', 'false');
+      boton.innerHTML = `
+        <span class="sello__foto"><img src="${s.foto}" alt="${s.ciudad}" onerror="this.parentElement.classList.add('sin-foto')"></span>
+        <span class="sello__info">
+          <small>Sello ${i + 1}</small>
+          <strong>${s.ciudad}</strong>
+          <span class="sello__texto">${s.texto}</span>
+        </span>
+        <span class="sello__marca" aria-hidden="true">${CONFIG.destino.split(',')[0]}<br>Sellado</span>`;
+      listaSellos.appendChild(boton);
+    });
+    actualizarProgreso();
   }
 
-  abrir.addEventListener('click', abrirInvitacion);
+  listaSellos.addEventListener('click', (e) => {
+    const boton = e.target.closest('.sello');
+    if (!boton) return;
+    const i = Number(boton.dataset.indice);
+    const abierto = boton.classList.toggle('is-abierto');
+    boton.setAttribute('aria-expanded', String(abierto));
 
-  // Si la invitación ya fue abierta, mostrarla de inmediato sin animación de sobre
-  // (esto es solo una comodidad local; no almacena datos personales)
-  try {
-    if (sessionStorage.getItem('invitacion-abierta') === '1') {
-      sobre.hidden = true;
-      invitacion.hidden = false;
-      observarHistoria();
+    if (!sellados.has(i)) {
+      sellados.add(i);
+      guardar(CLAVE_SELLOS, [...sellados]);
+      boton.classList.add('is-sellado');
+      boton.classList.add('is-sacudido');
+      setTimeout(() => boton.classList.remove('is-sacudido'), 450);
+      lanzarConfeti(18);
+      actualizarProgreso();
+      mostrarSorpresaDeSello(i);
     }
-  } catch (_) { /* storage bloqueado: se muestra el sobre normal */ }
+  });
 
-  abrir.addEventListener('click', () => {
-    try { sessionStorage.setItem('invitacion-abierta', '1'); } catch (_) {}
+  function mostrarSorpresaDeSello(i) {
+    // Un solo mensaje breve; el secreto final aparece al completar todo
+    const toast = document.createElement('p');
+    toast.className = 'instruccion';
+    toast.textContent = CONFIG.sellos[i].sorpresa;
+    toast.style.marginTop = '12px';
+    listaSellos.after(toast);
+    setTimeout(() => toast.remove(), 4200);
+
+    if (sellados.size === CONFIG.sellos.length) {
+      setTimeout(() => {
+        $('sorpresaTexto').textContent = CONFIG.mensajeSecreto;
+        sorpresa.hidden = false;
+        lanzarConfeti(90);
+        desbloquearVuelo();
+      }, 1200);
+    }
+  }
+
+  function actualizarProgreso() {
+    const total = CONFIG.sellos.length;
+    const n = sellados.size;
+    progreso.textContent = n === total
+      ? '¡Pasaporte completo! Ahora despega el vuelo.'
+      : `Sellos: ${n} de ${total}`;
+    if (n === total) desbloquearVuelo();
+  }
+
+  $('cerrarSorpresa').addEventListener('click', () => { sorpresa.hidden = true; });
+
+  // ---------- 4. Vuelo ----------
+  let vuelo = { despegado: false, llegado: false };
+
+  function desbloquearVuelo() {
+    avion.disabled = false;
+    vueloTexto.textContent = 'Toca el avión para despegar.';
+  }
+
+  avion.addEventListener('click', () => {
+    if (vuelo.despegado) return;
+    vuelo.despegado = true;
+    avion.disabled = true;
+    vueloTexto.textContent = `Despegando hacia ${CONFIG.destino}…`;
+    avion.classList.add('is-volando');
+
+    // Al llegar, mostramos el destino y la invitación
+    setTimeout(() => {
+      avion.classList.remove('is-volando');
+      avion.classList.add('is-llegado');
+      avion.style.left = '100%';
+      vueloTexto.textContent = `¡Llegamos a ${CONFIG.destino}!`;
+      destinoRevelado.hidden = false;
+      $('destinoFrase').textContent = CONFIG.fraseDestino;
+      revelarFotoDestino();
+      mostrarInvitacion();
+    }, 2300);
+  });
+
+  function revelarFotoDestino() {
+    const cont = $('destinoFoto');
+    cont.classList.remove('sin-foto');
+    cont.innerHTML = `<img src="fotos/destino.jpg" alt="${CONFIG.destino}" onerror="this.parentElement.classList.add('sin-foto')">`;
+  }
+
+  function mostrarInvitacion() {
+    embarque.hidden = false;
+    tarjeta.hidden = true;
+    embarque.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ---------- 5. Pregunta final ----------
+  function aceptar() {
+    tarjeta.hidden = false;
+    lanzarConfeti(120);
+    $('tarjetaNombre').textContent = nombreViajero || '—';
+    form.nombre.value = nombreViajero;
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  $('siQuiero').addEventListener('click', aceptar);
+  $('conGusto').addEventListener('click', aceptar);
+
+  // Recordatorio de fecha (.ics)
+  $('agendar').addEventListener('click', () => {
+    const inicio = new Date(CONFIG.fechaBoda);
+    const fin = new Date(inicio.getTime() + 6 * 3600 * 1000);
+    const fmt = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const ics = [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Pasaporte Boda//ES',
+      'BEGIN:VEVENT',
+      `DTSTART:${fmt(inicio)}`, `DTEND:${fmt(fin)}`,
+      `SUMMARY:Boda de ${CONFIG.novios}`,
+      `LOCATION:${CONFIG.lugar}`,
+      'END:VEVENT', 'END:VCALENDAR',
+    ].join('\r\n');
+    const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'boda.ics';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
 
   // ---------- Cuenta regresiva ----------
@@ -40,82 +253,25 @@
     minutos: document.querySelector('[data-k="minutos"]'),
     segundos: document.querySelector('[data-k="segundos"]'),
   };
-  const dosDigitos = (n) => String(n).padStart(2, '0');
-
+  const dos = (n) => String(n).padStart(2, '0');
+  const fechaBoda = new Date(CONFIG.fechaBoda);
   function actualizarCuenta() {
-    const diff = Math.max(0, FECHA_BODA - new Date());
-    const seg = Math.floor(diff / 1000);
-    celdas.dias.textContent = dosDigitos(Math.floor(seg / 86400));
-    celdas.horas.textContent = dosDigitos(Math.floor((seg % 86400) / 3600));
-    celdas.minutos.textContent = dosDigitos(Math.floor((seg % 3600) / 60));
-    celdas.segundos.textContent = dosDigitos(seg % 60);
+    const seg = Math.floor(Math.max(0, fechaBoda - new Date()) / 1000);
+    celdas.dias.textContent = dos(Math.floor(seg / 86400));
+    celdas.horas.textContent = dos(Math.floor((seg % 86400) / 3600));
+    celdas.minutos.textContent = dos(Math.floor((seg % 3600) / 60));
+    celdas.segundos.textContent = dos(seg % 60);
   }
   actualizarCuenta();
   setInterval(actualizarCuenta, 1000);
 
-  // ---------- Historia: aparece al hacer scroll ----------
-  let historiaObservada = false;
-  function observarHistoria() {
-    if (historiaObservada) return;
-    historiaObservada = true;
-    const items = document.querySelectorAll('.historia__item');
-    if (!('IntersectionObserver' in window)) {
-      items.forEach((el) => el.classList.add('is-visible'));
-      return;
-    }
-    const io = new IntersectionObserver((entradas) => {
-      entradas.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-visible');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    items.forEach((el, i) => {
-      el.style.transitionDelay = `${i * 150}ms`;
-      io.observe(el);
-    });
-  }
-
-  // ---------- Guardar fecha (archivo .ics) ----------
-  document.getElementById('agendar').addEventListener('click', () => {
-    const fmt = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-    const fin = new Date(FECHA_BODA.getTime() + 6 * 3600 * 1000);
-    const ics = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//Invitacion Boda//ES',
-      'BEGIN:VEVENT',
-      `DTSTART:${fmt(FECHA_BODA)}`,
-      `DTEND:${fmt(fin)}`,
-      'SUMMARY:Boda de Camila y Matías',
-      'LOCATION:Iglesia San Francisco',
-      'END:VEVENT',
-      'END:VCALENDAR',
-    ].join('\r\n');
-    const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'boda-camila-matias.ics';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
-
   // ---------- RSVP ----------
-  const form = document.getElementById('rsvp');
-  const errorEl = document.getElementById('rsvpError');
-  const gracias = document.getElementById('gracias');
-  const graciasTexto = document.getElementById('graciasTexto');
-  const campoPersonas = document.getElementById('campoPersonas');
+  const form = $('rsvp');
+  const errorEl = $('rsvpError');
+  const campoPersonas = $('campoPersonas');
 
-  // Mostrar número de personas solo si asistirá
   form.addEventListener('change', (e) => {
-    if (e.target.name === 'asiste') {
-      const asiste = form.asiste.value === 'si';
-      campoPersonas.hidden = !asiste;
-    }
+    if (e.target.name === 'asiste') campoPersonas.hidden = form.asiste.value !== 'si';
   });
 
   form.addEventListener('submit', (e) => {
@@ -123,9 +279,8 @@
     const datos = new FormData(form);
     const nombre = (datos.get('nombre') || '').toString().trim();
     const asiste = datos.get('asiste');
-
-    if (!nombre) return mostrarError('Por favor escribe tu nombre.');
-    if (!asiste) return mostrarError('Cuéntanos si podrás acompañarnos.');
+    if (!nombre) return mostrarError('Escribe tu nombre para tu pasaporte.');
+    if (!asiste) return mostrarError('Cuéntanos si viajas con nosotros.');
     errorEl.hidden = true;
 
     const respuesta = {
@@ -135,20 +290,17 @@
       alergias: (datos.get('alergias') || '').toString().trim(),
       fecha: new Date().toISOString(),
     };
+    // Demostración: se guarda solo en este navegador. Para recibir las
+    // respuestas de los invitados se necesita un backend o un servicio de formularios.
+    const previas = leer(CLAVE_RSVP, []);
+    previas.push(respuesta);
+    guardar(CLAVE_RSVP, previas);
 
-    // Guardado local de demostración. Para recibir las respuestas de los
-    // invitados se necesita un backend (ver README).
-    try {
-      const previas = JSON.parse(localStorage.getItem(CLAVE_RSVP) || '[]');
-      previas.push(respuesta);
-      localStorage.setItem(CLAVE_RSVP, JSON.stringify(previas));
-    } catch (_) { /* almacenamiento bloqueado: igual mostramos la confirmación */ }
-
-    graciasTexto.textContent = respuesta.asiste
-      ? `Nos alegra que nos acompañes, ${nombre}. Te esperamos el 14 de marzo.`
-      : `Gracias por avisarnos, ${nombre}. Te echaremos de menos.`;
+    $('graciasTexto').textContent = respuesta.asiste
+      ? `Tu lugar está reservado, ${nombre}. Te esperamos en ${CONFIG.destino.split(',')[0]} de camino al altar.`
+      : `Gracias por avisarnos, ${nombre}. Te llevaremos en el recuerdo.`;
     form.hidden = true;
-    gracias.hidden = false;
+    $('gracias').hidden = false;
     if (respuesta.asiste) lanzarConfeti(90);
   });
 
@@ -158,7 +310,7 @@
   }
 
   // ---------- Confeti ----------
-  const colores = ['#8a9a7b', '#d9b3a4', '#f1ebe3', '#c5d1b8', '#e8c9a0'];
+  const colores = ['#c9a45c', '#e8d19a', '#a8432f', '#2e4170', '#f6efe1'];
   function lanzarConfeti(cantidad) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     for (let i = 0; i < cantidad; i++) {
@@ -172,4 +324,10 @@
       p.addEventListener('animationend', () => p.remove());
     }
   }
+
+  // ---------- Inicio ----------
+  renderSellos();
+  // Restaura el estado de los sellos ya sellados (y el vuelo si estaba completo)
+  if (sellados.size === CONFIG.sellos.length) desbloquearVuelo();
+  else avion.disabled = true;
 })();
