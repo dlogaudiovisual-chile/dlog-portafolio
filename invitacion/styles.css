@@ -81,10 +81,10 @@ p { margin: 0; }
     radial-gradient(120% 80% at 50% 0%, #fffdf8 0%, var(--marfil) 55%, var(--piedra) 100%);
   transition: opacity .9s ease, visibility .9s;
 }
-.escena--tapa.is-saliendo { opacity: 0; visibility: hidden; transition-delay: .5s; }
+.escena--tapa.is-saliendo { opacity: 0; visibility: hidden; transition-delay: 1.2s; }
 .escena--tapa.is-saliendo .pasaporte-tapa {
-  transform: rotateY(-100deg);
-  transition: transform 1s cubic-bezier(.5,0,.2,1);
+  transform: rotateY(-165deg);
+  transition: transform 1.6s cubic-bezier(.45,.05,.2,1);
 }
 
 /* Sobre de papel con borde de bronce */

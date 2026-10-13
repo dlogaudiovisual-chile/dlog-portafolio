@@ -105,7 +105,7 @@
   abrirBtn.addEventListener('click', () => {
     tapa.classList.add('is-saliendo');
     viaje.hidden = false;
-    setTimeout(() => { tapa.hidden = true; }, 1500);
+    setTimeout(() => { tapa.hidden = true; }, 2200);
     try { sessionStorage.setItem('pasaporte-abierto', '1'); } catch (_) {}
     inputNombre.focus({ preventScroll: true });
   });
