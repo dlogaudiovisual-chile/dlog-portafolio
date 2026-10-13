@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invitación de Boda · Camila & Matías</title>
+  <meta name="description" content="Estás invitado a nuestra boda. Confirma tu asistencia.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Sobre de entrada -->
+  <section id="sobre" class="sobre" aria-label="Abrir invitación">
+    <div class="sobre__caja">
+      <p class="sobre__pre">Tienes una invitación</p>
+      <button class="sobre__tapa" id="abrirSobre" type="button" aria-expanded="false">
+        <span class="sobre__nombres">C <span>&amp;</span> M</span>
+        <span class="sobre__hint">Toca para abrir</span>
+      </button>
+    </div>
+  </section>
+
+  <main id="invitacion" class="invitacion" hidden>
+
+    <header class="hero">
+      <p class="hero__pre">Nos casamos</p>
+      <h1 class="hero__nombres">Camila <span>&amp;</span> Matías</h1>
+      <p class="hero__fecha">Sábado 14 de marzo · 2027</p>
+    </header>
+
+    <section class="bloque" aria-labelledby="t-cuenta">
+      <h2 id="t-cuenta" class="bloque__titulo">Faltan</h2>
+      <div class="cuenta" id="cuenta" role="timer" aria-live="off">
+        <div><span data-k="dias">00</span><small>días</small></div>
+        <div><span data-k="horas">00</span><small>horas</small></div>
+        <div><span data-k="minutos">00</span><small>min</small></div>
+        <div><span data-k="segundos">00</span><small>seg</small></div>
+      </div>
+    </section>
+
+    <section class="bloque" aria-labelledby="t-lugar">
+      <h2 id="t-lugar" class="bloque__titulo">Ceremonia y celebración</h2>
+      <p class="texto">Iglesia San Francisco · 17:00 hrs<br>Luego, recepción en Viña Los Olivos · 19:00 hrs</p>
+      <div class="acciones">
+        <a class="btn" href="https://maps.google.com/?q=Viña+Los+Olivos" target="_blank" rel="noopener">Cómo llegar</a>
+        <button class="btn btn--ghost" type="button" id="agendar">Guardar fecha</button>
+      </div>
+    </section>
+
+    <section class="bloque" aria-labelledby="t-galeria">
+      <h2 id="t-galeria" class="bloque__titulo">Nuestra historia</h2>
+      <div class="historia" id="historia">
+        <article class="historia__item">
+          <span class="historia__ano">2019</span>
+          <p>Nos conocimos en una biblioteca, por un libro que los dos queríamos.</p>
+        </article>
+        <article class="historia__item">
+          <span class="historia__ano">2023</span>
+          <p>Viajamos juntos por primera vez. Nos perdimos, y fue lo mejor del viaje.</p>
+        </article>
+        <article class="historia__item">
+          <span class="historia__ano">2026</span>
+          <p>Matías le pidió matrimonio frente al mar, al atardecer.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bloque" aria-labelledby="t-rsvp">
+      <h2 id="t-rsvp" class="bloque__titulo">¿Nos acompañas?</h2>
+      <form id="rsvp" class="rsvp" novalidate>
+        <label class="campo">
+          <span>Nombre</span>
+          <input name="nombre" type="text" autocomplete="name" required maxlength="80">
+        </label>
+        <fieldset class="campo campo--opciones">
+          <legend>¿Asistirás?</legend>
+          <label><input type="radio" name="asiste" value="si" required> Sí, allí estaré</label>
+          <label><input type="radio" name="asiste" value="no"> No podré ir</label>
+        </fieldset>
+        <label class="campo" id="campoPersonas">
+          <span>Número de personas</span>
+          <select name="personas">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </label>
+        <label class="campo">
+          <span>Alergias o restricciones alimentarias</span>
+          <input name="alergias" type="text" maxlength="120">
+        </label>
+        <p class="rsvp__error" id="rsvpError" role="alert" hidden></p>
+        <button class="btn btn--full" type="submit">Confirmar</button>
+      </form>
+      <div class="rsvp__gracias" id="gracias" hidden>
+        <p class="gracias__titulo">¡Gracias!</p>
+        <p class="texto" id="graciasTexto"></p>
+      </div>
+    </section>
+
+    <footer class="pie">
+      <p>Con amor, Camila y Matías</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
