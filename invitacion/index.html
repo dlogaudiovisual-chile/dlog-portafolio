@@ -13,7 +13,7 @@
 <body>
 
   <!-- 1. Tapa del pasaporte -->
-  <section id="tapa" class="escena escena--tapa" aria-label="Pasaporte cerrado">
+  <section id="tapa" class="escena escena--tapa fondo" style="--fondo: url('fotos/mar.jpg')" aria-label="Pasaporte cerrado">
     <button class="pasaporte-tapa" id="abrirPasaporte" type="button">
       <span class="tapa__emblema">Invitación</span>
       <span class="tapa__titulo">Viaje de vida</span>
@@ -47,7 +47,7 @@
     </section>
 
     <!-- 3. Sellos: cada recuerdo es un sello -->
-    <section class="sellos" aria-labelledby="t-sellos">
+    <section class="sellos fondo" style="--fondo: url('fotos/dunas.jpg')" aria-labelledby="t-sellos">
       <h2 id="t-sellos" class="titulo-seccion">Nuestros viajes</h2>
       <p class="instruccion">Toca cada sello para ver el recuerdo. Cada uno guarda una sorpresa.</p>
       <div id="listaSellos" class="lista-sellos"></div>
@@ -55,7 +55,7 @@
     </section>
 
     <!-- 4. Vuelo al destino -->
-    <section class="vuelo" aria-labelledby="t-vuelo">
+    <section class="vuelo fondo" style="--fondo: url('fotos/globo.jpg')" aria-labelledby="t-vuelo">
       <h2 id="t-vuelo" class="titulo-seccion">Nuestro vuelo</h2>
       <div class="ruta" id="ruta" aria-label="Ruta del vuelo">
         <div class="ruta__linea">
@@ -142,12 +142,15 @@
       </div>
     </section>
 
-    <section class="galeria reveal" aria-labelledby="t-galeria">
-      <h2 id="t-galeria" class="titulo-seccion titulo-seccion--pequeno">Nuestra aventura</h2>
-      <div class="galeria__grid">
-        <img src="fotos/parque.jpg" alt="Nosotros en un parque con palmas altas" loading="lazy" onerror="this.hidden=true">
-        <img src="fotos/elefante.jpg" alt="Nosotros acariciando un elefante" loading="lazy" onerror="this.hidden=true">
-        <img src="fotos/ascensor.jpg" alt="Selfie juntos con nuestro perrito" loading="lazy" onerror="this.hidden=true">
+    <section class="galeria reveal" aria-label="Nuestra aventura">
+      <div class="banda" style="--fondo: url('fotos/parque.jpg')">
+        <h2 class="titulo-seccion" id="t-galeria">Nuestra aventura</h2>
+      </div>
+      <div class="banda" style="--fondo: url('fotos/elefante.jpg')">
+        <p class="etiqueta">Viajar juntos</p>
+      </div>
+      <div class="banda" style="--fondo: url('fotos/ascensor.jpg')">
+        <p class="etiqueta">Siempre de la mano</p>
       </div>
     </section>
 

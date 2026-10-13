@@ -140,12 +140,24 @@ p { margin: 0; }
 }
 
 /* ---------- Estructura ---------- */
+/* Diseño de página: secciones a todo el ancho, contenido centrado en 680px */
 .viaje {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 48px 20px 88px;
+  padding: 0 0 88px;
   animation: entrada 1s ease both;
 }
+.viaje > section {
+  max-width: 680px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+.viaje > section.fondo,
+.viaje > section.galeria {
+  max-width: none;
+  padding-inline: 0;
+}
+.viaje > section.fondo > * { max-width: 680px; margin-inline: auto; padding-inline: 20px; }
+.viaje > section.galeria > .banda { padding-inline: max(28px, calc((100% - 680px) / 2 + 20px)); }
+.viaje > section:first-child { padding-top: 48px; }
 @keyframes entrada {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: none; }
@@ -425,17 +437,77 @@ section + section { margin-top: 72px; }
 }
 .gracias__titulo { font-size: 2rem; font-style: italic; color: var(--azul); margin-bottom: 8px; }
 
-/* ---------- Galería ---------- */
-.galeria { text-align: center; }
-.galeria__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.galeria__grid img {
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  filter: saturate(.8);
-  transition: filter .6s ease;
+/* ---------- Fotografías como fondo ---------- */
+/* Cualquier bloque con .fondo recibe su foto en --fondo y un velo que deja
+   el texto legible. El velo es marfil (claro) o azul (oscuro) según el bloque. */
+.fondo { position: relative; isolation: isolate; overflow: hidden; }
+.fondo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--fondo) center / cover no-repeat;
+  filter: saturate(.75) contrast(1.02);
 }
-.galeria__grid img:hover { filter: saturate(1); }
+.fondo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--marfil) 90%, transparent) 0%,
+    color-mix(in srgb, var(--marfil) 94%, transparent) 100%);
+}
+.fondo--oscuro::after {
+  background: linear-gradient(180deg,
+    rgba(12, 26, 42, .45) 0%,
+    rgba(12, 26, 42, .82) 100%);
+}
+.fondo--oscuro { color: #f3ead8; }
+.fondo--oscuro .titulo-seccion,
+.fondo--oscuro .etiqueta { color: #f3ead8; }
+
+.sellos.fondo,
+.vuelo.fondo { padding-block: 80px; }
+
+/* Portada: foto a pantalla completa con velo azul */
+.escena--tapa.fondo::after {
+  background: linear-gradient(180deg, rgba(12,26,42,.35), rgba(12,26,42,.7));
+}
+
+/* Galería: bandas a ancho completo con foto de fondo */
+.galeria { display: grid; }
+.banda {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: 62vh;
+  min-height: 340px;
+  display: flex;
+  align-items: flex-end;
+  padding: 32px 28px;
+  color: #f3ead8;
+}
+.banda::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--fondo) center / cover no-repeat;
+  transform: scale(1.04);
+  transition: transform 6s ease;
+}
+.banda:hover::before { transform: scale(1.1); }
+.banda::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(12,26,42,0) 35%, rgba(12,26,42,.78) 100%);
+}
+.banda .etiqueta,
+.banda .titulo-seccion { color: #f3ead8; text-align: left; margin: 0; }
+.banda .titulo-seccion { font-size: 2.4rem; }
 
 .pie { text-align: center; padding-top: 48px; font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--azul-suave); }
 
