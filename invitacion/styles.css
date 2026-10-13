@@ -479,6 +479,24 @@ section + section { margin-top: 56px; }
 }
 .gracias__titulo { font-size: 1.8rem; margin: 0 0 8px; font-style: italic; color: var(--azul); }
 
+/* Galería: miniaturas discretas, bajo el texto en importancia */
+.galeria { text-align: center; }
+.galeria__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.galeria__grid img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 90px 90px 10px 10px;
+  opacity: .9;
+  filter: saturate(.85);
+  transition: transform .4s ease, opacity .4s ease;
+}
+.galeria__grid img:hover { transform: translateY(-3px); opacity: 1; }
+
 .pie { text-align: center; padding-top: 40px; font-style: italic; color: var(--egeo); }
 
 /* ---------- Sorpresa secreta ---------- */

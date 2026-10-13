@@ -27,20 +27,20 @@
     // Sellos: cada uno es un recuerdo con foto propia en fotos/
     sellos: [
       {
-        ciudad: 'Kioto, 2019',
-        foto: 'fotos/viaje-1.jpg',
-        texto: 'Nos perdimos entre templos y terminamos riéndonos en la misma calle que nunca encontramos.',
-        sorpresa: 'Primer sello: la aventura siempre empieza con un "¿y si nos perdemos?".',
+        ciudad: 'Sobre las nubes',
+        foto: 'fotos/globo.jpg',
+        texto: 'Madrugamos para volar en globo. Desde arriba todo se ve pequeño, menos lo que queremos vivir juntos.',
+        sorpresa: 'Primer sello: la aventura empieza cuando te animas a subir.',
       },
       {
-        ciudad: 'Patagonia, 2023',
-        foto: 'fotos/viaje-2.jpg',
-        texto: 'Tres días de viento, cerros y un atardecer que no queríamos que terminara.',
-        sorpresa: 'Segundo sello: hay viajes que se miden en silencios cómodos.',
+        ciudad: 'Dunas',
+        foto: 'fotos/dunas.jpg',
+        texto: 'Subimos la duna de la mano, sin apuro y sin saber bien hacia dónde, solo avanzando juntos.',
+        sorpresa: 'Segundo sello: los mejores caminos se hacen de a dos.',
       },
       {
-        ciudad: 'Frente al mar, 2026',
-        foto: 'fotos/viaje-3.jpg',
+        ciudad: 'Frente al mar',
+        foto: 'fotos/mar.jpg',
         texto: 'Cristopher le preguntó a Catalina al atardecer, y ella dijo que sí antes de que terminara la frase.',
         sorpresa: 'Tercer sello: el viaje que ahora queremos compartir contigo.',
       },
