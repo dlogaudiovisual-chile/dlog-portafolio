@@ -2,15 +2,28 @@
   // ---------- CONFIGURACIÓN: cambia aquí todos los datos ----------
   const CONFIG = {
     novios: 'Camila & Matías',
-    salida: 'Santiago',
-    destino: 'Kioto, Japón',           // destino X del vuelo
-    fraseDestino: 'Ahí empezó todo lo que queremos vivir juntos.',
     fechaBoda: '2027-03-14T17:00:00-03:00',
     fechaTexto: 'Sábado 14 · Marzo 2027',
-    hora: '17:00 hrs',
-    lugar: 'Viña Los Olivos · 19:00 hrs',
-    mapa: 'https://maps.google.com/?q=Viña+Los+Olivos',
     vuelo: 'VUELO 2027',
+    // Paradas del vuelo, en orden: primero la ceremonia y luego la fiesta
+    escalas: [
+      {
+        nombre: 'Ceremonia',
+        hora: '17:00 hrs',
+        lugar: 'Iglesia San Francisco',
+        mapa: 'https://maps.google.com/?q=Iglesia+San+Francisco',
+        foto: 'fotos/ceremonia.jpg',
+        frase: 'Aquí nos dijimos que sí, frente a las personas que más queremos.',
+      },
+      {
+        nombre: 'Fiesta',
+        hora: '19:00 hrs',
+        lugar: 'Viña Los Olivos',
+        mapa: 'https://maps.google.com/?q=Viña+Los+Olivos',
+        foto: 'fotos/fiesta.jpg',
+        frase: 'Y después, a bailar hasta que el vuelo se haga de madrugada.',
+      },
+    ],
     // Sellos: cada uno es un recuerdo con foto propia en fotos/
     sellos: [
       {
@@ -65,15 +78,17 @@
   let nombreViajero = '';
 
   // ---------- Textos base ----------
-  $('destinoTexto').textContent = CONFIG.destino;
+  const [ceremonia, fiesta] = CONFIG.escalas;
+  $('destinoTexto').textContent = CONFIG.escalas.map((e) => e.nombre).join(' → ');
   $('salidaTexto').textContent = CONFIG.fechaTexto;
-  $('rutaDestino').textContent = CONFIG.destino;
+  $('rutaParada1').textContent = ceremonia.nombre;
+  $('rutaParada2').textContent = fiesta.nombre;
   $('tarjetaVuelo').textContent = CONFIG.vuelo;
-  $('tarjetaDestino').textContent = CONFIG.destino;
   $('tarjetaFecha').textContent = CONFIG.fechaTexto;
-  $('tarjetaHora').textContent = CONFIG.hora;
-  $('tarjetaLugar').textContent = CONFIG.lugar;
-  $('comoLlegar').href = CONFIG.mapa;
+  $('tarjetaParada1').textContent = `${ceremonia.nombre} · ${ceremonia.hora}`;
+  $('tarjetaParada2').textContent = `${fiesta.nombre} · ${fiesta.hora}`;
+  $('comoLlegar1').href = ceremonia.mapa;
+  $('comoLlegar2').href = fiesta.mapa;
 
   // ---------- 1. Abrir pasaporte ----------
   abrirBtn.addEventListener('click', () => {
@@ -117,7 +132,7 @@
           <strong>${s.ciudad}</strong>
           <span class="sello__texto">${s.texto}</span>
         </span>
-        <span class="sello__marca" aria-hidden="true">${CONFIG.destino.split(',')[0]}<br>Sellado</span>`;
+        <span class="sello__marca" aria-hidden="true">Sellado</span>`;
       listaSellos.appendChild(boton);
     });
     actualizarProgreso();
@@ -184,26 +199,37 @@
     if (vuelo.despegado) return;
     vuelo.despegado = true;
     avion.disabled = true;
-    vueloTexto.textContent = `Despegando hacia ${CONFIG.destino}…`;
-    avion.classList.add('is-volando');
-
-    // Al llegar, mostramos el destino y la invitación
-    setTimeout(() => {
-      avion.classList.remove('is-volando');
-      avion.classList.add('is-llegado');
-      avion.style.left = '100%';
-      vueloTexto.textContent = `¡Llegamos a ${CONFIG.destino}!`;
-      destinoRevelado.hidden = false;
-      $('destinoFrase').textContent = CONFIG.fraseDestino;
-      revelarFotoDestino();
-      mostrarInvitacion();
-    }, 2300);
+    volarA(0);
   });
 
-  function revelarFotoDestino() {
-    const cont = $('destinoFoto');
-    cont.classList.remove('sin-foto');
-    cont.innerHTML = `<img src="fotos/destino.jpg" alt="${CONFIG.destino}" onerror="this.parentElement.classList.add('sin-foto')">`;
+  // Vuela a la parada i; al aterrizar muestra su tarjeta y sigue con la siguiente
+  function volarA(i) {
+    const escala = CONFIG.escalas[i];
+    vueloTexto.textContent = `Rumbo a ${escala.nombre}…`;
+    avion.classList.add('is-volando');
+    avion.style.left = i === 0 ? '50%' : '100%';
+
+    setTimeout(() => {
+      avion.classList.remove('is-volando');
+      revelarEscala(i);
+      if (i + 1 < CONFIG.escalas.length) {
+        setTimeout(() => volarA(i + 1), 1200);
+      } else {
+        avion.classList.add('is-llegado');
+        mostrarInvitacion();
+      }
+    }, 2300);
+  }
+
+  function revelarEscala(i) {
+    const e = CONFIG.escalas[i];
+    vueloTexto.textContent = `¡Llegamos a ${e.nombre}!`;
+    const tarjetaEscala = document.createElement('div');
+    tarjetaEscala.className = 'destino';
+    tarjetaEscala.innerHTML = `
+      <div class="destino__foto"><img src="${e.foto}" alt="${e.nombre}" onerror="this.parentElement.classList.add('sin-foto')"></div>
+      <p class="destino__frase"><strong>${e.nombre}</strong> · ${e.hora} · ${e.lugar}<br>${e.frase}</p>`;
+    destinoRevelado.appendChild(tarjetaEscala);
   }
 
   function mostrarInvitacion() {
@@ -233,7 +259,7 @@
       'BEGIN:VEVENT',
       `DTSTART:${fmt(inicio)}`, `DTEND:${fmt(fin)}`,
       `SUMMARY:Boda de ${CONFIG.novios}`,
-      `LOCATION:${CONFIG.lugar}`,
+      `LOCATION:${ceremonia.lugar}`,
       'END:VEVENT', 'END:VCALENDAR',
     ].join('\r\n');
     const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
@@ -297,7 +323,7 @@
     guardar(CLAVE_RSVP, previas);
 
     $('graciasTexto').textContent = respuesta.asiste
-      ? `Tu lugar está reservado, ${nombre}. Te esperamos en ${CONFIG.destino.split(',')[0]} de camino al altar.`
+      ? `Tu lugar está reservado, ${nombre}. Te esperamos en la ceremonia y después en la fiesta.`
       : `Gracias por avisarnos, ${nombre}. Te llevaremos en el recuerdo.`;
     form.hidden = true;
     $('gracias').hidden = false;

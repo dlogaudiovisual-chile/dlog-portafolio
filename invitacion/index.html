@@ -32,7 +32,7 @@
         <dl class="datos__lista">
           <div><dt>Tipo</dt><dd>Viajero especial</dd></div>
           <div><dt>Nombres</dt><dd id="nombreViajero">Escribe tu nombre</dd></div>
-          <div><dt>Destino</dt><dd id="destinoTexto"></dd></div>
+          <div><dt>Paradas</dt><dd id="destinoTexto"></dd></div>
           <div><dt>Salida</dt><dd id="salidaTexto"></dd></div>
           <div><dt>Motivo</dt><dd>Casamiento</dd></div>
         </dl>
@@ -53,19 +53,17 @@
 
     <!-- 4. Vuelo al destino -->
     <section class="vuelo" aria-labelledby="t-vuelo">
-      <h2 id="t-vuelo" class="titulo-seccion">Próximo destino</h2>
+      <h2 id="t-vuelo" class="titulo-seccion">Nuestro vuelo</h2>
       <div class="ruta" id="ruta" aria-label="Ruta del vuelo">
-        <span class="ruta__punto ruta__punto--origen">Hoy</span>
         <div class="ruta__linea">
-          <button class="avion" id="avion" type="button" aria-label="Despegar el avión">✈</button>
+          <span class="ruta__parada ruta__parada--origen">Hoy</span>
+          <span class="ruta__parada ruta__parada--1" id="rutaParada1">Ceremonia</span>
+          <span class="ruta__parada ruta__parada--2" id="rutaParada2">Fiesta</span>
+          <button class="avion" id="avion" type="button" aria-label="Despegar el avión" disabled>✈</button>
         </div>
-        <span class="ruta__punto ruta__punto--destino" id="rutaDestino">Destino</span>
       </div>
-      <p class="instruccion" id="vueloTexto">Toca el avión para despegar.</p>
-      <div class="destino" id="destinoRevelado" hidden>
-        <div class="destino__foto" id="destinoFoto"></div>
-        <p class="destino__frase" id="destinoFrase"></p>
-      </div>
+      <p class="instruccion" id="vueloTexto">Completa tu pasaporte para despegar.</p>
+      <div id="destinoRevelado"></div>
     </section>
 
     <!-- 5. Tarjeta de embarque: invitación final -->
@@ -83,17 +81,15 @@
         </header>
         <div class="tarjeta__cuerpo">
           <div><small>Pasajero</small><strong id="tarjetaNombre">—</strong></div>
-          <div><small>Desde</small><strong>Santiago</strong></div>
-          <div><small>Hasta</small><strong id="tarjetaDestino">—</strong></div>
           <div><small>Fecha</small><strong id="tarjetaFecha">—</strong></div>
-          <div><small>Ceremonia</small><strong id="tarjetaHora">—</strong></div>
-          <div><small>Puerta</small><strong>Iglesia San Francisco</strong></div>
           <div><small>Asiento</small><strong>14A</strong></div>
-          <div><small>Celebración</small><strong id="tarjetaLugar">—</strong></div>
+          <div class="tarjeta__ancho"><small>Parada 1</small><strong id="tarjetaParada1">—</strong></div>
+          <div class="tarjeta__ancho"><small>Parada 2</small><strong id="tarjetaParada2">—</strong></div>
         </div>
         <div class="tarjeta__acciones">
           <button class="btn btn--ghost" id="agendar" type="button">Guardar en calendario</button>
-          <a class="btn btn--ghost" id="comoLlegar" href="#" target="_blank" rel="noopener">Cómo llegar</a>
+          <a class="btn btn--ghost" id="comoLlegar1" href="#" target="_blank" rel="noopener">Cómo llegar a la ceremonia</a>
+          <a class="btn btn--ghost" id="comoLlegar2" href="#" target="_blank" rel="noopener">Cómo llegar a la fiesta</a>
         </div>
       </article>
 

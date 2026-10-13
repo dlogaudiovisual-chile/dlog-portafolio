@@ -236,32 +236,31 @@ section + section { margin-top: 56px; }
 .progreso { text-align: center; font-size: .9rem; margin: 18px 0 0; letter-spacing: .05em; }
 
 /* ---------- Vuelo ---------- */
-.ruta {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 12px;
-  padding: 24px 12px;
-}
-.ruta__punto {
-  font-size: .8rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.ruta__punto--destino { font-weight: bold; color: var(--sello); }
+.ruta { padding: 56px 40px 24px; }
 .ruta__linea {
   position: relative;
   height: 2px;
   background: repeating-linear-gradient(90deg, var(--azul-claro) 0 8px, transparent 8px 16px);
 }
+.ruta__parada {
+  position: absolute;
+  top: -30px;
+  transform: translateX(-50%);
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ruta__parada--origen { left: 0; }
+.ruta__parada--1 { left: 50%; }
+.ruta__parada--2 { left: 100%; font-weight: bold; color: var(--sello); }
 .avion {
   all: unset;
   cursor: pointer;
   position: absolute;
   left: 0;
   top: 50%;
-  transform: translate(-50%, -50%) rotate(0deg);
+  transform: translate(-50%, -50%);
   width: 46px;
   height: 46px;
   border-radius: 50%;
@@ -274,10 +273,8 @@ section + section { margin-top: 56px; }
   transition: left 2.2s cubic-bezier(.5, 0, .3, 1), transform .3s ease;
 }
 .avion:focus-visible { outline: 3px solid var(--oro); outline-offset: 4px; }
-.avion.is-volando { left: 100%; }
 .avion.is-volando { transform: translate(-50%, -50%) rotate(45deg); }
-.avion.is-llegado { transform: translate(-50%, -50%) rotate(0deg); }
-.avion:disabled { cursor: default; }
+.avion:disabled { cursor: default; opacity: .6; }
 
 .destino {
   margin-top: 24px;
@@ -346,6 +343,7 @@ section + section { margin-top: 56px; }
 }
 .tarjeta__cuerpo small { display: block; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; opacity: .65; }
 .tarjeta__cuerpo strong { font-size: 1rem; }
+.tarjeta__ancho { grid-column: 1 / -1; }
 .tarjeta__acciones { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding: 16px; }
 .tarjeta__acciones .btn--ghost { color: var(--azul); border-color: var(--azul); font-size: .9rem; padding: 10px 18px; }
 
