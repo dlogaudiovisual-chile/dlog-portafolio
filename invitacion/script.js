@@ -57,6 +57,9 @@
     pases: Math.min(4, Math.max(1, Number(params.get('pases')) || 1)),
   };
 
+  // URL de la aplicación web de Google Apps Script (ver apps-script/Code.gs)
+  const ENDPOINT_RSVP = '';
+
   const CLAVE_RSVP = 'pasaporte-boda-rsvp';
   const CLAVE_SELLOS = 'pasaporte-boda-sellos';
 
@@ -334,6 +337,17 @@
     const previas = leer(CLAVE_RSVP, []);
     previas.push(respuesta);
     guardar(CLAVE_RSVP, previas);
+
+    // Envío a la hoja de cálculo. Con no-cors no se puede leer la respuesta,
+    // así que la confirmación al invitado no depende de que llegue.
+    if (ENDPOINT_RSVP) {
+      fetch(ENDPOINT_RSVP, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(respuesta),
+      }).catch(() => {});
+    }
 
     $('graciasTexto').textContent = respuesta.asiste
       ? `Tu lugar está reservado, ${nombre}. Te esperamos en la ceremonia y después en la fiesta.`

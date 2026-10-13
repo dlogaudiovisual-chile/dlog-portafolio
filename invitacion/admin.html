@@ -115,6 +115,7 @@
       <section aria-labelledby="t-exp">
         <h2 id="t-exp">Datos</h2>
         <div class="acciones">
+          <button id="actualizar" type="button">Actualizar respuestas</button>
           <button class="sec" id="exportar" type="button">Exportar respaldo (JSON)</button>
           <button class="peligro" id="borrarTodo" type="button">Borrar todo</button>
         </div>
@@ -126,7 +127,9 @@
   <script>
     (() => {
       // ---------- Configuración ----------
-      const CLAVE_ADMIN = 'cambiar-esta-clave';
+      // URL de la aplicación web de Google Apps Script (ver apps-script/Code.gs).
+      // Con endpoint configurado, la clave que escribes al entrar es el TOKEN_ADMIN del script.
+      const ENDPOINT_RSVP = '';
       const FECHA_BODA = new Date('2027-03-14T16:00:00-03:00');
       const DATOS = 'admin-boda-invitados';
       const RSVP = 'pasaporte-boda-rsvp';
@@ -137,17 +140,34 @@
       const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (_) {} };
 
       // ---------- Acceso ----------
-      if (sessionStorage.getItem('admin-ok') === '1') mostrarPanel();
-      else $('login').hidden = false;
-      $('entrar').addEventListener('click', () => {
-        if ($('clave').value === CLAVE_ADMIN) {
-          try { sessionStorage.setItem('admin-ok', '1'); } catch (_) {}
-          mostrarPanel();
-        } else {
-          $('claveError').hidden = false;
+      // ---------- Acceso ----------
+      let respuestasRemotas = null;
+      let token = '';
+
+      async function cargarRemotas(clave) {
+        const r = await fetch(`${ENDPOINT_RSVP}?token=${encodeURIComponent(clave)}`);
+        const j = await r.json();
+        if (j.error) throw new Error(j.error);
+        return j.respuestas;
+      }
+
+      async function entrar(clave) {
+        if (ENDPOINT_RSVP) {
+          respuestasRemotas = await cargarRemotas(clave); // lanza error si la clave no sirve
+          token = clave;
         }
+        try { sessionStorage.setItem('admin-ok', '1'); } catch (_) {}
+        mostrarPanel();
+      }
+
+      $('entrar').addEventListener('click', () => {
+        entrar($('clave').value).catch(() => { $('claveError').hidden = false; });
       });
       $('clave').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('entrar').click(); });
+
+      // Sin endpoint, el panel solo muestra datos de este navegador
+      if (!ENDPOINT_RSVP && sessionStorage.getItem('admin-ok') === '1') mostrarPanel();
+      else $('login').hidden = false;
 
       function mostrarPanel() {
         $('login').hidden = true;
@@ -157,10 +177,17 @@
         setInterval(actualizarCuenta, 1000);
       }
 
+      async function refrescar() {
+        if (!ENDPOINT_RSVP) return render();
+        try { respuestasRemotas = await cargarRemotas(token); render(); }
+        catch (_) { $('avisoNuevo').textContent = 'No se pudieron cargar las respuestas.'; $('avisoNuevo').hidden = false; }
+      }
+      $('actualizar').addEventListener('click', refrescar);
+
       // ---------- Datos ----------
       let invitados = leer(DATOS, []);
       const guardarInvitados = () => guardar(DATOS, invitados);
-      const respuestas = () => leer(RSVP, []);
+      const respuestas = () => respuestasRemotas || leer(RSVP, []);
 
       // Estado de cada invitado según sus respuestas (por campo "invitado")
       function estadoDe(inv) {
