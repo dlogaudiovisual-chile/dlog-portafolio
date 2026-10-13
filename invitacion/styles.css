@@ -194,7 +194,7 @@ section + section { margin-top: 72px; }
 .datos__foto {
   aspect-ratio: 9 / 13;
   overflow: hidden;
-  border-radius: 999px 999px 4px 4px;
+  border-radius: 2px;
   background: linear-gradient(160deg, var(--piedra), var(--azul-suave));
 }
 .datos__foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; display: block; }
@@ -250,7 +250,7 @@ section + section { margin-top: 72px; }
   height: 88px;
   overflow: hidden;
   background: linear-gradient(160deg, var(--piedra), var(--azul-suave));
-  border-radius: 44px 44px 2px 2px;
+  border-radius: 2px;
 }
 .sello__foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .sello__foto.sin-foto img { display: none; }
