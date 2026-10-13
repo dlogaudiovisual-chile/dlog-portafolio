@@ -612,3 +612,26 @@ section + section { margin-top: 72px; }
 .tapa__nombres { color: #f3e6c8; }
 .tapa__nombres em { color: #C9A84C; }
 .tapa__hint { color: #C9A84C; }
+
+/* ---------- Fotografía de fondo en toda la página ----------
+   La foto de los anillos cubre toda la pantalla, velada en arena para que
+   solo se distingan las letras y los bloques de contenido. */
+body { position: relative; }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: url("fotos/anillos.jpg") center / cover no-repeat;
+  filter: saturate(.5) blur(3px);
+  transform: scale(1.05);
+  pointer-events: none;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--marfil) 86%, transparent);
+  pointer-events: none;
+}
