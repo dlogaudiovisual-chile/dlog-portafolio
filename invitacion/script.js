@@ -18,8 +18,8 @@
       {
         nombre: 'Fiesta',
         hora: '17:30 hrs',
-        lugar: 'Arbórea · dirección por confirmar',
-        mapa: 'https://maps.google.com/?q=Arbórea+La+Serena',
+        lugar: 'Arbórea · Lote 13, Bien Común F-5, Pan de Azúcar, Coquimbo',
+        mapa: 'https://maps.google.com/?q=Lote+13+Bien+Comun+F-5+Pan+de+Azucar+Coquimbo',
         foto: 'fotos/fiesta.jpg',
         frase: 'Y después, a bailar hasta que el vuelo se haga de madrugada.',
       },
