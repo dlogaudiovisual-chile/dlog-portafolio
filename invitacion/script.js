@@ -392,20 +392,6 @@
     secciones.forEach((s) => s.classList.add('is-visible'));
   }
 
-  // ---------- Pétalos de bugambilia flotando ----------
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const colores = ['#d9477a', '#e87aa0', '#f2a7c0'];
-    for (let i = 0; i < 9; i++) {
-      const p = document.createElement('span');
-      p.className = 'petalo';
-      p.style.left = `${Math.random() * 100}vw`;
-      p.style.background = colores[i % colores.length];
-      p.style.animationDuration = `${9 + Math.random() * 7}s`;
-      p.style.animationDelay = `${-Math.random() * 12}s`;
-      document.body.appendChild(p);
-    }
-  }
-
   // ---------- Inicio ----------
   renderSellos();
   // Precarga el nombre del invitado desde su enlace personalizado
