@@ -81,10 +81,16 @@ p { margin: 0; }
     radial-gradient(120% 80% at 50% 0%, #fffdf8 0%, var(--marfil) 55%, var(--piedra) 100%);
   transition: opacity .9s ease, visibility .9s;
 }
-.escena--tapa.is-saliendo { opacity: 0; visibility: hidden; transition-delay: 1.2s; }
+/* Al abrir, la portada queda fija encima de la invitación y se retira */
+.escena--tapa.is-saliendo {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
 .escena--tapa.is-saliendo .pasaporte-tapa {
-  transform: rotateY(-165deg);
-  transition: transform 1.6s cubic-bezier(.45,.05,.2,1);
+  transform: rotateY(-180deg);
+  transition: transform 1.4s cubic-bezier(.6,.05,.25,1);
 }
 
 /* Sobre de papel con borde de bronce */
@@ -108,6 +114,7 @@ p { margin: 0; }
   position: relative;
   transform-origin: left center;
   transition: transform .6s ease, box-shadow .6s ease;
+  backface-visibility: hidden;
 }
 .pasaporte-tapa::before {
   content: "";
@@ -143,7 +150,15 @@ p { margin: 0; }
 /* Diseño de página: secciones a todo el ancho, contenido centrado en 680px */
 .viaje {
   padding: 0 0 88px;
-  animation: entrada 1s ease both;
+}
+/* La invitación se abre como un libro: entra desde el lomo */
+.viaje.is-abriendo {
+  animation: abrir-libro 1.4s cubic-bezier(.2,.6,.2,1) both;
+  transform-origin: left center;
+}
+@keyframes abrir-libro {
+  from { opacity: 0; transform: perspective(1400px) rotateY(-28deg) scale(.97); }
+  to   { opacity: 1; transform: none; }
 }
 .viaje > section {
   max-width: 680px;

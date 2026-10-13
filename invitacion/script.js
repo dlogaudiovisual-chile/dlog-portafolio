@@ -103,15 +103,16 @@
 
   // ---------- 1. Abrir pasaporte ----------
   abrirBtn.addEventListener('click', () => {
-    tapa.classList.add('is-saliendo');
     try { sessionStorage.setItem('pasaporte-abierto', '1'); } catch (_) {}
-    // Los datos aparecen cuando la tapa termina de girar, para que la animación se vea
+    // La invitación entra desde el lomo mientras la portada se abre encima
+    viaje.hidden = false;
+    viaje.classList.add('is-abriendo');
+    tapa.classList.add('is-saliendo');
+    window.scrollTo({ top: 0, behavior: 'instant' });
     setTimeout(() => {
       tapa.hidden = true;
-      viaje.hidden = false;
-      window.scrollTo({ top: 0, behavior: 'instant' });
       inputNombre.focus({ preventScroll: true });
-    }, 1700);
+    }, 1500);
   });
 
   try {
