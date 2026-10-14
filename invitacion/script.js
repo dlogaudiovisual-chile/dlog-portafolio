@@ -52,3 +52,20 @@
     elementos.forEach((el) => el.classList.add('is-visible'));
   }
 })();
+
+
+// ---------- Libro negro: abre la portada y deja ver la invitación ----------
+(() => {
+  const libro = document.getElementById('libro');
+  const abrir = document.getElementById('abrirLibro');
+  if (!libro || !abrir) return;
+
+  function abrirLibro() {
+    if (libro.classList.contains('is-abriendo')) return;
+    libro.classList.add('is-abriendo');
+    setTimeout(() => libro.classList.add('is-abierto'), 1300);
+    setTimeout(() => { libro.hidden = true; }, 2100);
+  }
+
+  abrir.addEventListener('click', abrirLibro);
+})();
