@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pasaporte de Boda · Cristopher & Catalina</title>
-  <meta name="description" content="Estás invitado al inicio de nuestro viaje de vida.">
+  <title>Cristopher & Catalina · Boda</title>
+  <meta name="description" content="Invitación de boda de Cristopher y Catalina: ceremonia, celebración, vestimenta e itinerario.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400&display=swap">
@@ -12,156 +12,88 @@
 </head>
 <body>
 
-  <!-- 1. Tapa del pasaporte -->
-  <section id="tapa" class="escena escena--tapa fondo" style="--fondo: url('fotos/mar.jpg')" aria-label="Pasaporte cerrado">
-    <button class="pasaporte-tapa" id="abrirPasaporte" type="button">
-      <span class="tapa__emblema" aria-hidden="true">C&amp;M</span>
-      <span class="tapa__titulo">Pasaporte</span>
-      <span class="tapa__sub">Viaje de vida</span>
-      <span class="tapa__nombres">Cristopher <em>&amp;</em> Catalina</span>
-      <span class="tapa__hint">Toca para abrir</span>
-    </button>
-  </section>
+  <!-- Portada -->
+  <header class="portada" id="inicio">
+    <div class="portada__contenido">
+      <p class="etiqueta anim" style="--d:.1s">Nos casamos</p>
+      <h1 class="portada__nombres anim" style="--d:.3s">
+        <span>Cristopher</span>
+        <em>&amp;</em>
+        <span>Catalina</span>
+      </h1>
+      <p class="portada__fecha anim" style="--d:.6s">Ceremonia 16:00 hrs · Celebración 17:30 hrs</p>
+      <a class="portada__ir anim" style="--d:.8s" href="#ceremonia">Ver detalles</a>
+    </div>
+  </header>
 
-  <main id="viaje" class="viaje" hidden>
+  <main>
 
-    <!-- 2. Página de datos del viajero -->
-    <section class="pagina pagina--datos" aria-labelledby="t-datos">
-      <p class="pagina__cabecera">Pasaporte · Viaje de vida</p>
-      <div class="datos">
-        <div class="datos__foto">
-          <img src="fotos/anillos.jpg" alt="Anillos de Cristopher y Catalina" onerror="this.parentElement.classList.add('sin-foto')">
-        </div>
-        <dl class="datos__lista">
-          <div><dt>Tipo</dt><dd>Viajero especial</dd></div>
-          <div><dt>Nombres</dt><dd id="nombreViajero">Escribe tu nombre</dd></div>
-          <div><dt>Paradas</dt><dd id="destinoTexto"></dd></div>
-          <div><dt>Salida</dt><dd id="salidaTexto"></dd></div>
-          <div><dt>Motivo</dt><dd>Casamiento</dd></div>
-        </dl>
+    <!-- Cuenta regresiva -->
+    <section class="bloque bloque--centro reveal" aria-labelledby="t-cuenta">
+      <h2 id="t-cuenta" class="titulo">Faltan</h2>
+      <div class="cuenta" id="cuenta" role="timer" aria-label="Cuenta regresiva">
+        <div><span data-k="dias">--</span><small>días</small></div>
+        <div><span data-k="horas">--</span><small>horas</small></div>
+        <div><span data-k="minutos">--</span><small>min</small></div>
+        <div><span data-k="segundos">--</span><small>seg</small></div>
       </div>
-      <label class="campo-viajero">
-        <span>Escribe tu nombre para sellar tu pasaporte</span>
-        <input id="inputNombre" type="text" maxlength="40" autocomplete="name" placeholder="Tu nombre">
-      </label>
+      <p class="nota">Fecha por confirmar</p>
     </section>
 
-    <!-- 3. Sellos: cada recuerdo es un sello -->
-    <section class="sellos fondo" style="--fondo: url('fotos/dunas.jpg')" aria-labelledby="t-sellos">
-      <h2 id="t-sellos" class="titulo-seccion">Nuestros viajes</h2>
-      <p class="instruccion">Toca cada sello para ver el recuerdo. Cada uno guarda una sorpresa.</p>
-      <div id="listaSellos" class="lista-sellos"></div>
-      <p class="progreso" id="progreso" aria-live="polite"></p>
-    </section>
+    <!-- Ceremonia y celebración -->
+    <section class="bloque" id="ceremonia" aria-labelledby="t-ceremonia">
+      <h2 id="t-ceremonia" class="titulo reveal">Ceremonia y celebración</h2>
 
-    <!-- 4. Vuelo al destino -->
-    <section class="vuelo fondo" style="--fondo: url('fotos/globo.jpg')" aria-labelledby="t-vuelo">
-      <h2 id="t-vuelo" class="titulo-seccion">Nuestro vuelo</h2>
-      <div class="ruta" id="ruta" aria-label="Ruta del vuelo">
-        <div class="ruta__linea">
-          <span class="ruta__estela" id="estela" aria-hidden="true"></span>
-          <span class="ruta__parada ruta__parada--origen">Hoy</span>
-          <span class="ruta__parada ruta__parada--1" id="rutaParada1">Ceremonia</span>
-          <span class="ruta__parada ruta__parada--2" id="rutaParada2">Fiesta</span>
-          <button class="avion" id="avion" type="button" aria-label="Despegar el avión" disabled>✈</button>
-        </div>
-      </div>
-      <p class="instruccion" id="vueloTexto">Completa tu pasaporte para despegar.</p>
-      <div id="destinoRevelado"></div>
-    </section>
-
-    <!-- 5. Tarjeta de embarque: invitación final -->
-    <section class="embarque" id="embarque" aria-labelledby="t-embarque" hidden>
-      <h2 id="t-embarque" class="pregunta">¿Quieres formar parte del inicio de nuestro viaje de vida?</h2>
-      <div class="botones-pregunta">
-        <button class="btn" id="siQuiero" type="button">Sí, quiero</button>
-        <button class="btn btn--ghost" id="conGusto" type="button">Con gusto</button>
-      </div>
-
-      <article class="tarjeta" id="tarjeta" hidden>
-        <header class="tarjeta__cabecera">
-          <span>Tarjeta de embarque</span>
-          <span id="tarjetaVuelo">VUELO 2027</span>
-        </header>
-        <div class="tarjeta__cuerpo">
-          <div><small>Pasajero</small><strong id="tarjetaNombre">—</strong></div>
-          <div><small>Fecha</small><strong id="tarjetaFecha">—</strong></div>
-          <div><small>Asiento</small><strong>14A</strong></div>
-          <div class="tarjeta__ancho"><small>Parada 1</small><strong id="tarjetaParada1">—</strong></div>
-          <div class="tarjeta__ancho"><small>Parada 2</small><strong id="tarjetaParada2">—</strong></div>
-        </div>
-        <div class="tarjeta__acciones">
-          <button class="btn btn--ghost" id="agendar" type="button">Guardar en calendario</button>
-          <a class="btn btn--ghost" id="comoLlegar1" href="#" target="_blank" rel="noopener">Cómo llegar a la ceremonia</a>
-          <a class="btn btn--ghost" id="comoLlegar2" href="#" target="_blank" rel="noopener">Cómo llegar a la fiesta</a>
-        </div>
+      <article class="lugar reveal">
+        <p class="etiqueta">Ceremonia · 16:00 hrs</p>
+        <h3>Catedral de La Serena</h3>
+        <p>Gregorio Cordobés 3027, frente a la Plaza de Armas, La Serena</p>
+        <a class="boton" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Catedral+de+La+Serena+Gregorio+Cordobes+3027">Cómo llegar</a>
       </article>
 
-      <div class="cuenta" id="cuenta" role="timer" aria-label="Cuenta regresiva al viaje">
-        <div><span data-k="dias">00</span><small>días</small></div>
-        <div><span data-k="horas">00</span><small>horas</small></div>
-        <div><span data-k="minutos">00</span><small>min</small></div>
-        <div><span data-k="segundos">00</span><small>seg</small></div>
-      </div>
+      <article class="lugar reveal">
+        <p class="etiqueta">Celebración · 17:30 hrs</p>
+        <h3>Arbórea</h3>
+        <p>Lote 13, Bien Común F-5, Pan de Azúcar, Coquimbo</p>
+        <a class="boton" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Lote+13+Bien+Comun+F-5+Pan+de+Azucar+Coquimbo">Cómo llegar</a>
+      </article>
+    </section>
 
-      <!-- RSVP -->
-      <form id="rsvp" class="rsvp" novalidate>
-        <h3 class="titulo-seccion titulo-seccion--pequeno">Confirma tu lugar a bordo</h3>
-        <label class="campo">
-          <span>Nombre</span>
-          <input name="nombre" type="text" autocomplete="name" maxlength="80">
-        </label>
-        <fieldset class="campo campo--opciones">
-          <legend>¿Viajas con nosotros?</legend>
-          <label><input type="radio" name="asiste" value="si"> Sí, allí estaré</label>
-          <label><input type="radio" name="asiste" value="no"> No podré ir</label>
-        </fieldset>
-        <label class="campo" id="campoPersonas">
-          <span>Número de pasajeros</span>
-          <select name="personas">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
-        </label>
-        <label class="campo">
-          <span>Alergias o restricciones alimentarias</span>
-          <input name="alergias" type="text" maxlength="120">
-        </label>
-        <label class="campo">
-          <span>Un mensaje para los novios</span>
-          <textarea name="mensaje" rows="3" maxlength="300"></textarea>
-        </label>
-        <p class="rsvp__error" id="rsvpError" role="alert" hidden></p>
-        <button class="btn btn--full" type="submit">Confirmar</button>
-      </form>
-      <div class="rsvp__gracias" id="gracias" hidden>
-        <p class="gracias__titulo">¡Buen viaje!</p>
-        <p id="graciasTexto"></p>
+    <!-- Vestimenta -->
+    <section class="bloque" aria-labelledby="t-vestimenta">
+      <h2 id="t-vestimenta" class="titulo reveal">Vestimenta</h2>
+      <p class="texto reveal">El código de vestimenta se confirmará pronto. Mientras tanto, puedes ver ideas de estilo mediterráneo elegante.</p>
+      <div class="acciones reveal">
+        <a class="boton boton--suave" target="_blank" rel="noopener"
+           href="https://www.pinterest.com/search/pins/?q=vestimenta%20boda%20mediterranea%20elegante">Ver ideas en Pinterest</a>
       </div>
     </section>
 
-    <section class="galeria reveal" aria-label="Nuestra aventura">
-      <div class="banda" style="--fondo: url('fotos/parque.jpg')">
-        <h2 class="titulo-seccion" id="t-galeria">Nuestra aventura</h2>
-      </div>
-      <div class="banda" style="--fondo: url('fotos/elefante.jpg')">
-        <p class="etiqueta">Viajar juntos</p>
-      </div>
-      <div class="banda" style="--fondo: url('fotos/ascensor.jpg')">
-        <p class="etiqueta">Siempre de la mano</p>
-      </div>
+    <!-- Itinerario -->
+    <section class="bloque" aria-labelledby="t-itinerario">
+      <h2 id="t-itinerario" class="titulo reveal">Itinerario</h2>
+      <ol class="itinerario">
+        <li class="reveal"><time>15:30</time><div><strong>Llegada</strong><span>Catedral de La Serena</span></div></li>
+        <li class="reveal"><time>16:00</time><div><strong>Ceremonia</strong><span>Catedral de La Serena</span></div></li>
+        <li class="reveal"><time>17:30</time><div><strong>Celebración</strong><span>Arbórea, Pan de Azúcar</span></div></li>
+        <li class="reveal"><time>--:--</time><div><strong>Cierre de la fiesta</strong><span>Por confirmar</span></div></li>
+      </ol>
     </section>
 
-    <footer class="pie">Con amor, Cristopher y Catalina</footer>
+    <!-- Confirmación -->
+    <section class="bloque bloque--centro" aria-labelledby="t-rsvp">
+      <h2 id="t-rsvp" class="titulo reveal">Confirma tu asistencia</h2>
+      <p class="texto reveal">Nos encantaría contar contigo. La confirmación en línea todavía no está conectada, así que por ahora avísanos directamente.</p>
+      <p class="nota reveal">Número de confirmación por definir.</p>
+    </section>
+
   </main>
 
-  <!-- Sello secreto: aparece al completar todos los sellos -->
-  <div class="sorpresa" id="sorpresa" hidden>
-    <p class="sorpresa__texto" id="sorpresaTexto"></p>
-    <button class="btn btn--ghost" id="cerrarSorpresa" type="button">Cerrar</button>
-  </div>
+  <footer class="pie">
+    <p>Con amor, Cristopher y Catalina</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
